@@ -2,13 +2,29 @@
 {% extends 'base.html' %}
 
 {% block content%}
-<h1>Create Ticket</h1>
-<body>
-	<form method='POST' action=''>{% csrf_token %}
-		{{form}}
-        <input type="submit" value='Save'/>
-    </form>
 
-</body>
-</html>
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Tickets</h1>
+    <p class="mb-4">To submit a ticket for an issue, please fill out the following form.</p>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Create a Ticket</h6>
+        </div>
+        <div class="card-body">
+			<form method='POST' action=''>{% csrf_token %}
+				<div class="form-group">
+					{{form}}
+				</div>
+		        <input type="submit" class="btn btn-primary" value='Submit'/>
+				<button class="btn btn-secondary" href="{% url 'tickets' %}">Cancel</button>
+		    </form>
+		</div>
+	</div>
+</div>
+
 {% endblock content %}
