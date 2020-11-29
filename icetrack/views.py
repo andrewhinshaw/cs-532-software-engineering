@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, FormView
 
 from .models import Order, Product, Inventory, Ticket
-from .forms import InventoryCreateForm
+from .forms import InventoryCreateForm, TicketCreateForm
 
 
 # Create your views here.
@@ -24,15 +24,27 @@ class InventoryCreateView(FormView):
     # if form.is_valid(self):
     #     form.save()
     template_name = 'create_inventory.html'
-    success_url = '/success/'
+    success_url = '/inventory/'
 
     def form_valid(self, form):
+        self.object = form.save()
         return super().form_valid(form)
 
 class TicketsPageView(ListView):
     model = Ticket
     template_name = 'tickets.html'
     context_object_name = 'all_tickets_list'
+
+class TicketCreateView(FormView):
+    form_class = TicketCreateForm
+    # if form.is_valid(self):
+    #     form.save()
+    template_name = 'create_ticket.html'
+    success_url = '/tickets/'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return super().form_valid(form)
 
 class AboutPageView(TemplateView):
     template_name = 'about.html'
