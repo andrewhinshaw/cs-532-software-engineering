@@ -3,7 +3,8 @@ from django.views.generic import TemplateView, ListView, FormView
 from django.db.models import Sum
 
 from .models import Order, Product, Inventory, Ticket, Shipment
-from .forms import InventoryCreateForm, TicketCreateForm
+from .forms import InventoryCreateForm, TicketCreateForm, \
+    OrderCreateForm, ShipmentCreateForm
 
 
 # Create your views here.
@@ -18,15 +19,43 @@ class HomePageView(TemplateView):
         context['total_orders'] = Order.objects.count()
         return context
 
+class AboutPageView(TemplateView):
+    template_name = 'about.html'
+
+class SuccessPageView(TemplateView):
+    template_name = 'success.html'
+
 class OrdersPageView(ListView):
     model = Order
     template_name = 'orders.html'
     context_object_name = 'all_orders_list'
 
+class OrderCreateView(FormView):
+    form_class = OrderCreateForm
+    # if form.is_valid(self):
+    #     form.save()
+    template_name = 'create_order.html'
+    success_url = '/orders/'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return super().form_valid(form)
+
 class ShipmentsPageView(ListView):
     model = Shipment
     template_name = 'shipments.html'
     context_object_name = 'all_shipments_list'
+
+class ShipmentCreateView(FormView):
+    form_class = ShipmentCreateForm
+    # if form.is_valid(self):
+    #     form.save()
+    template_name = 'create_shipment.html'
+    success_url = '/shipments/'
+
+    def form_valid(self, form):
+        self.object = form.save()
+        return super().form_valid(form)
 
 class InventoryPageView(ListView):
     model = Inventory
@@ -59,12 +88,6 @@ class TicketCreateView(FormView):
     def form_valid(self, form):
         self.object = form.save()
         return super().form_valid(form)
-
-class AboutPageView(TemplateView):
-    template_name = 'about.html'
-
-class SuccessPageView(TemplateView):
-    template_name = 'success.html'
 
 class RegisterPageView(TemplateView):
     template_name = 'register.html'

@@ -7,8 +7,7 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Orders</h1>
-        <!-- TODO: Update create order link -->
-        <a href="{% url 'create_inventory' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm disabled"><i class="fas fa-plus fa-sm text-white-50"></i> Create Order</a>
+        <a href="{% url 'create_order' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Order</a>
     </div>
     <ul>
         {% for order in all_orders_list %}

@@ -7,11 +7,10 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Shipments</h1>
-        <!-- TODO: Update create order link -->
-        <a href="{% url 'create_inventory' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm disabled"><i class="fas fa-plus fa-sm text-white-50"></i> Create Shipment</a>
+        <a href="{% url 'create_shipment' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Shipment</a>
     </div>
     <ul>
-        {% for shipments in all_shipments_list %}
+        {% for shipment in all_shipments_list %}
             <li>{{ shipment.name }}</li>
         {% endfor %}
     </ul>
