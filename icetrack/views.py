@@ -35,6 +35,12 @@ class InventoryCreateView(FormView):
     template_name = 'create_inventory.html'
     success_url = '/inventory/'
 
+    def get_success_url(self):
+        """ Redirects to the newly created object """
+        new = self.object
+        url = reverse_lazy("my-item", kwargs={"pk": new.pk})
+        return url
+
     def form_valid(self, form):
         self.object = form.save()
         return super().form_valid(form)

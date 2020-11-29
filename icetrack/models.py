@@ -5,13 +5,13 @@ class Order(models.Model):
     name = models.TextField()
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 class Product(models.Model):
     title = models.TextField()
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 class Inventory(models.Model):
 	item_name = models.CharField(max_length=50, blank=True, null=True)
@@ -27,7 +27,7 @@ class Inventory(models.Model):
 	export_to_CSV = models.BooleanField(default=False)
 
 	def __str__(self):
-		return self.item_name
+		return str(self.item_name)
 
 class Ticket(models.Model):
     title = models.CharField(max_length=50, blank=True, null=True)
@@ -39,4 +39,4 @@ class Ticket(models.Model):
     export_to_CSV = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
