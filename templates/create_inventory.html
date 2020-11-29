@@ -9,12 +9,24 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Inventory</h1>
-    <p class="mb-4">To create an inventory item, please fill out the following form.</p>
+    <p class="mb-4">
+        {% if 'update' in request.path %}
+            Please edit the inventory attributes below.
+        {% else %}
+            To create an inventory item, please fill out the following form.
+        {% endif %}
+    </p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Create Inventory</h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+                {% if 'update' in request.path %}
+                    Edit Inventory
+                {% else %}
+                    Create Inventory
+                {% endif %}
+            </h6>
         </div>
         <div class="card-body">
 			<form method='POST' action=''>{% csrf_token %}

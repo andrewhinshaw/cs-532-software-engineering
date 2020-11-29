@@ -1,13 +1,15 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, FormView
+from django.views.generic import TemplateView, ListView, FormView, UpdateView
 from django.db.models import Sum
 
 from .models import Order, Product, Inventory, Ticket, Shipment
-from .forms import InventoryCreateForm, TicketCreateForm, \
-    OrderCreateForm, ShipmentCreateForm
+from .forms import InventoryCreateForm, InventoryUpdateForm
+from .forms import TicketCreateForm
+from .forms import OrderCreateForm
+from .forms import ShipmentCreateForm
 
 
-# Create your views here.
+# GENERAL
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
@@ -25,6 +27,7 @@ class AboutPageView(TemplateView):
 class SuccessPageView(TemplateView):
     template_name = 'success.html'
 
+# ORDERS
 class OrdersPageView(ListView):
     model = Order
     template_name = 'orders.html'
@@ -32,8 +35,6 @@ class OrdersPageView(ListView):
 
 class OrderCreateView(FormView):
     form_class = OrderCreateForm
-    # if form.is_valid(self):
-    #     form.save()
     template_name = 'create_order.html'
     success_url = '/orders/'
 
@@ -41,6 +42,7 @@ class OrderCreateView(FormView):
         self.object = form.save()
         return super().form_valid(form)
 
+# SHIPMENTS
 class ShipmentsPageView(ListView):
     model = Shipment
     template_name = 'shipments.html'
@@ -48,8 +50,6 @@ class ShipmentsPageView(ListView):
 
 class ShipmentCreateView(FormView):
     form_class = ShipmentCreateForm
-    # if form.is_valid(self):
-    #     form.save()
     template_name = 'create_shipment.html'
     success_url = '/shipments/'
 
@@ -57,6 +57,7 @@ class ShipmentCreateView(FormView):
         self.object = form.save()
         return super().form_valid(form)
 
+# INVENTORY
 class InventoryPageView(ListView):
     model = Inventory
     template_name = 'inventory.html'
@@ -64,8 +65,6 @@ class InventoryPageView(ListView):
 
 class InventoryCreateView(FormView):
     form_class = InventoryCreateForm
-    # if form.is_valid(self):
-    #     form.save()
     template_name = 'create_inventory.html'
     success_url = '/inventory/'
 
@@ -73,6 +72,13 @@ class InventoryCreateView(FormView):
         self.object = form.save()
         return super().form_valid(form)
 
+class InventoryUpdateView(UpdateView):
+    model = Inventory
+    form_class = InventoryUpdateForm
+    success_url = '/inventory/'
+    template_name = 'create_inventory.html'
+
+# TICKETS
 class TicketsPageView(ListView):
     model = Ticket
     template_name = 'tickets.html'
@@ -80,8 +86,6 @@ class TicketsPageView(ListView):
 
 class TicketCreateView(FormView):
     form_class = TicketCreateForm
-    # if form.is_valid(self):
-    #     form.save()
     template_name = 'create_ticket.html'
     success_url = '/tickets/'
 
@@ -89,6 +93,7 @@ class TicketCreateView(FormView):
         self.object = form.save()
         return super().form_valid(form)
 
+# AUTHENTICATION
 class RegisterPageView(TemplateView):
     template_name = 'register.html'
 

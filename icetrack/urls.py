@@ -1,9 +1,11 @@
 # icetrack/urls.py
 from django.urls import path
-from .views import HomePageView, AboutPageView, SuccessPageView, \
-    InventoryPageView, OrdersPageView, ShipmentsPageView, TicketsPageView, \
-    InventoryCreateView,  TicketCreateView, \
-    OrderCreateView, ShipmentCreateView
+
+from .views import HomePageView, AboutPageView, SuccessPageView
+from .views import InventoryPageView, InventoryCreateView, InventoryUpdateView
+from .views import OrdersPageView, OrderCreateView
+from .views import ShipmentsPageView, ShipmentCreateView
+from .views import TicketsPageView, TicketCreateView
 
 
 # app_name = 'main'  # used for namespacing of urls
@@ -15,6 +17,7 @@ urlpatterns = [
 
     path('inventory/', InventoryPageView.as_view(), name="inventory"),
     path('create_inventory/', InventoryCreateView.as_view(), name="create_inventory"),
+    path('inventory/<int:pk>/update', InventoryUpdateView.as_view(), name="update_inventory"),
 
     path('orders/', OrdersPageView.as_view(), name="orders"),
     path('create_order/', OrderCreateView.as_view(), name="create_order"),
