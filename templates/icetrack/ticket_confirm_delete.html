@@ -1,0 +1,31 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content%}
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">Ticket</h1>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                Delete Ticket
+            </h6>
+        </div>
+        <div class="card-body">
+            <form method="post" action="">
+                {% csrf_token %}
+                <p>Are you sure you want to delete?</p><br>
+                <input class="btn btn-danger" type="submit" value="Delete" />
+                <a href="{{ view.get_success_url }}" class="btn btn-secondary">Cancel</a>
+            </form>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

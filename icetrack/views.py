@@ -48,6 +48,10 @@ class OrderUpdateView(UpdateView):
     success_url = '/orders/'
     template_name = 'create_order.html'
 
+class OrderDeleteView(DeleteView):
+    model = Order
+    success_url = '/orders/'
+
 # SHIPMENTS
 class ShipmentsPageView(ListView):
     model = Shipment
@@ -68,6 +72,10 @@ class ShipmentUpdateView(UpdateView):
     form_class = ShipmentUpdateForm
     success_url = '/shipments/'
     template_name = 'create_shipment.html'
+
+class ShipmentDeleteView(DeleteView):
+    model = Shipment
+    success_url = '/shipments/'
 
 # INVENTORY
 class InventoryPageView(ListView):
@@ -114,6 +122,10 @@ class TicketUpdateView(UpdateView):
     form_class = TicketUpdateForm
     success_url = '/tickets/'
     template_name = 'create_ticket.html'
+
+class TicketDeleteView(DeleteView):
+    model = Ticket
+    success_url = '/tickets/'
 
 # AUTHENTICATION
 class RegisterPageView(TemplateView):
