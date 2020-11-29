@@ -44,7 +44,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item {% if request.path == '/' %} active {% endif %}">
                 <a class="nav-link" href="{% url 'home' %}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -59,28 +59,28 @@
             </div>
 
             <!-- Nav Item - Orders -->
-            <li class="nav-item">
+            <li class="nav-item {% if 'order' in request.path %} active {% endif %}">
                 <a class="nav-link" href="{% url 'orders' %}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Orders</span></a>
             </li>
 
             <!-- Nav Item - Inventory -->
-            <li class="nav-item">
+            <li class="nav-item {% if 'inventory' in request.path %} active {% endif %}">
                 <a class="nav-link" href="{% url 'inventory' %}">
                     <i class="fas fa-fw fa-boxes"></i>
                     <span>Inventory</span></a>
             </li>
 
             <!-- Nav Item - Shipping -->
-            <li class="nav-item">
+            <li class="nav-item {% if 'shipment' in request.path %} active {% endif %}">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-truck"></i>
                     <span>Shipping</span></a>
             </li>
 
             <!-- Nav Item - Tickets -->
-            <li class="nav-item">
+            <li class="nav-item {% if 'ticket' in request.path %} active {% endif %}">
                 <a class="nav-link" href="{% url 'tickets' %}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tickets</span></a>
