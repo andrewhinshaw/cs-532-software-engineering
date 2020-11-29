@@ -74,9 +74,9 @@
 
             <!-- Nav Item - Shipping -->
             <li class="nav-item {% if 'shipment' in request.path %} active {% endif %}">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'shipments' %}">
                     <i class="fas fa-fw fa-truck"></i>
-                    <span>Shipping</span></a>
+                    <span>Shipments</span></a>
             </li>
 
             <!-- Nav Item - Tickets -->

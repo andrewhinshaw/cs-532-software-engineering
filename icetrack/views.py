@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, FormView
 from django.db.models import Sum
 
-from .models import Order, Product, Inventory, Ticket
+from .models import Order, Product, Inventory, Ticket, Shipment
 from .forms import InventoryCreateForm, TicketCreateForm
 
 
@@ -13,7 +13,7 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['total_inventory_items'] = Inventory.objects.count()
-        context['total_inventory_quantity'] = Inventory.objects.aggregate(Sum('quantity'))
+        context['total_shipments'] = Shipment.objects.count()
         context['total_tickets'] = Ticket.objects.count()
         context['total_orders'] = Order.objects.count()
         return context
@@ -22,6 +22,11 @@ class OrdersPageView(ListView):
     model = Order
     template_name = 'orders.html'
     context_object_name = 'all_orders_list'
+
+class ShipmentsPageView(ListView):
+    model = Shipment
+    template_name = 'shipments.html'
+    context_object_name = 'all_shipments_list'
 
 class InventoryPageView(ListView):
     model = Inventory
