@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, FormView
 
 from .models import Order, Product, Inventory, Ticket
+from .forms import InventoryCreateForm
 
 
 # Create your views here.
@@ -17,6 +18,16 @@ class InventoryPageView(ListView):
     model = Inventory
     template_name = 'inventory.html'
     context_object_name = 'all_inventory_list'
+
+class InventoryCreateView(FormView):
+    form_class = InventoryCreateForm
+    # if form.is_valid(self):
+    #     form.save()
+    template_name = 'create_inventory.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        return super().form_valid(form)
 
 class TicketsPageView(ListView):
     model = Ticket
