@@ -9,6 +9,11 @@ from .forms import InventoryCreateForm, TicketCreateForm
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
+    total_inventory_items = Inventory.objects.count()
+    total_inventory_quantity = Inventory.objects.aggregate(Sum('quantity'))
+    total_tickets = Ticket.objects.count()
+    total_orders = Order.objects.count()
+
 class OrdersPageView(ListView):
     model = Order
     template_name = 'orders.html'
