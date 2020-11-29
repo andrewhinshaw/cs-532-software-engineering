@@ -7,6 +7,12 @@ class Order(models.Model):
     def __str__(self):
         return str(self.name)
 
+class Shipment(models.Model):
+    name = models.TextField()
+
+    def __str__(self):
+        return str(self.name)
+
 class Product(models.Model):
     title = models.TextField()
 
