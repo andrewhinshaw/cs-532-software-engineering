@@ -1,0 +1,11 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block content%}
+<h1>Ice Track Ticket Tracker Page</h1>
+<ul>
+    {% for ticket in all_tickets_list %}
+        <li>{{ ticket.title }}: {{ ticket.status }}, {{ ticket.date_opened }}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

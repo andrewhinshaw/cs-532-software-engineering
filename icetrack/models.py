@@ -30,13 +30,13 @@ class Inventory(models.Model):
 		return self.item_name
 
 class Ticket(models.Model):
-	title = models.CharField(max_length=50, blank=True, null=True)
-	description = models.CharField(max_length=50, blank=True, null=True)
+    title = models.CharField(max_length=50, blank=True, null=True)
+    description = models.CharField(max_length=50, blank=True, null=True)
     status = models.CharField(max_length=50, blank=True, null=True)
-	opened_by = models.CharField(max_length=50, blank=True, null=True)
+    opened_by = models.CharField(max_length=50, blank=True, null=True)
     date_opened = models.DateTimeField(auto_now_add=False, auto_now=True)
-	last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-	export_to_CSV = models.BooleanField(default=False)
+    last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    export_to_CSV = models.BooleanField(default=False)
 
-	def __str__(self):
-		return self.item_name
+    def __str__(self):
+        return self.title
