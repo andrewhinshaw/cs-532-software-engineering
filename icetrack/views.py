@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, FormView, UpdateView
+from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView
 from django.db.models import Sum
 
 from .models import Order, Product, Inventory, Ticket, Shipment
@@ -89,6 +89,10 @@ class InventoryUpdateView(UpdateView):
     form_class = InventoryUpdateForm
     success_url = '/inventory/'
     template_name = 'create_inventory.html'
+
+class InventoryDeleteView(DeleteView):
+    model = Inventory
+    success_url = '/inventory/'
 
 # TICKETS
 class TicketsPageView(ListView):

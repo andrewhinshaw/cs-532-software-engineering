@@ -2,7 +2,7 @@
 from django.urls import path
 
 from .views import HomePageView, AboutPageView, SuccessPageView
-from .views import InventoryPageView, InventoryCreateView, InventoryUpdateView
+from .views import InventoryPageView, InventoryCreateView, InventoryUpdateView, InventoryDeleteView
 from .views import OrdersPageView, OrderCreateView, OrderUpdateView
 from .views import ShipmentsPageView, ShipmentCreateView, ShipmentUpdateView
 from .views import TicketsPageView, TicketCreateView, TicketUpdateView
@@ -21,6 +21,7 @@ urlpatterns = [
     path('inventory/', InventoryPageView.as_view(), name="inventory"),
     path('create_inventory/', InventoryCreateView.as_view(), name="create_inventory"),
     path('inventory/<int:pk>/update', InventoryUpdateView.as_view(), name="update_inventory"),
+    path('inventory/<int:pk>/delete', InventoryDeleteView.as_view(), name="delete_inventory"),
 
     # ORDERS
     path('orders/', OrdersPageView.as_view(), name="orders"),
