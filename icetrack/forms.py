@@ -27,14 +27,29 @@ class TicketCreateForm(forms.ModelForm):
         model = Ticket
         fields = ['title', 'description']
 
+class TicketUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ['title', 'description']
+
 # ORDERS
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['name']
 
+class OrderUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['name']
+
 # SHIPMENTS
 class ShipmentCreateForm(forms.ModelForm):
+    class Meta:
+        model = Shipment
+        fields = ['name']
+
+class ShipmentUpdateForm(forms.ModelForm):
     class Meta:
         model = Shipment
         fields = ['name']

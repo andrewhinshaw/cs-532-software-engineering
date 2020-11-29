@@ -4,9 +4,9 @@ from django.db.models import Sum
 
 from .models import Order, Product, Inventory, Ticket, Shipment
 from .forms import InventoryCreateForm, InventoryUpdateForm
-from .forms import TicketCreateForm
-from .forms import OrderCreateForm
-from .forms import ShipmentCreateForm
+from .forms import TicketCreateForm, TicketUpdateForm
+from .forms import OrderCreateForm, OrderUpdateForm
+from .forms import ShipmentCreateForm, ShipmentUpdateForm
 
 
 # GENERAL
@@ -42,6 +42,12 @@ class OrderCreateView(FormView):
         self.object = form.save()
         return super().form_valid(form)
 
+class OrderUpdateView(UpdateView):
+    model = Order
+    form_class = OrderUpdateForm
+    success_url = '/orders/'
+    template_name = 'create_order.html'
+
 # SHIPMENTS
 class ShipmentsPageView(ListView):
     model = Shipment
@@ -56,6 +62,12 @@ class ShipmentCreateView(FormView):
     def form_valid(self, form):
         self.object = form.save()
         return super().form_valid(form)
+
+class ShipmentUpdateView(UpdateView):
+    model = Shipment
+    form_class = ShipmentUpdateForm
+    success_url = '/shipments/'
+    template_name = 'create_shipment.html'
 
 # INVENTORY
 class InventoryPageView(ListView):
@@ -92,6 +104,12 @@ class TicketCreateView(FormView):
     def form_valid(self, form):
         self.object = form.save()
         return super().form_valid(form)
+
+class TicketUpdateView(UpdateView):
+    model = Ticket
+    form_class = TicketUpdateForm
+    success_url = '/tickets/'
+    template_name = 'create_ticket.html'
 
 # AUTHENTICATION
 class RegisterPageView(TemplateView):
