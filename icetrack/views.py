@@ -5,9 +5,13 @@ from .models import Order, Product, Inventory
 
 
 # Create your views here.
-class HomePageView(ListView):
-    model = Order
+class HomePageView(TemplateView):
     template_name = 'home.html'
+
+
+class OrdersPageView(ListView):
+    model = Order
+    template_name = 'orders.html'
     context_object_name = 'all_orders_list'
 
 

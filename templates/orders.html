@@ -3,4 +3,9 @@
 
 {% block content%}
 <h1>Ice Track Home Page</h1>
+<ul>
+    {% for order in all_orders_list %}
+        <li>{{ order.name }}</li>
+    {% endfor %}
+</ul>
 {% endblock content %}
