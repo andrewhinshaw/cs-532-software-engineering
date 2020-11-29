@@ -1,0 +1,11 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block content%}
+<h1>Ice Track Inventory Page</h1>
+<ul>
+    {% for inventory in all_inventory_list %}
+        <li>{{ inventory.item_name }}: {{ inventory.quantity }}</li>
+    {% endfor %}
+</ul>
+{% endblock content %}

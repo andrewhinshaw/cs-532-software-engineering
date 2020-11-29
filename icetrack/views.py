@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 
-from .models import Order
+from .models import Order, Product, Inventory
 
 
 # Create your views here.
@@ -9,6 +9,12 @@ class HomePageView(ListView):
     model = Order
     template_name = 'home.html'
     context_object_name = 'all_orders_list'
+
+
+class InventoryPageView(ListView):
+    model = Inventory
+    template_name = 'inventory.html'
+    context_object_name = 'all_inventory_list'
 
 
 class AboutPageView(TemplateView):
