@@ -3,13 +3,15 @@ from django.urls import reverse
 
 # Create your models here.
 class Order(models.Model):
-    name = models.TextField()
+    name = models.CharField(max_length=50, blank=True, null=True)
+    inventory = models.ManyToManyField('Inventory', blank=True)
 
     def __str__(self):
         return str(self.name)
 
 class Shipment(models.Model):
-    name = models.TextField()
+    name = models.CharField(max_length=50, blank=True, null=True)
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return str(self.name)
@@ -40,9 +42,15 @@ class Inventory(models.Model):
         return str(self.item_name)
 
 class Ticket(models.Model):
+    STATUS_CHOICES = [
+        ('Open', 'Open'),
+        ('On Hold', 'On Hold'),
+        ('Resolved', 'Resolved')
+    ]
+
     title = models.CharField(max_length=50, blank=True, null=True)
-    description = models.CharField(max_length=50, blank=True, null=True)
-    status = models.CharField(max_length=50, blank=True, null=True)
+    description = models.TextField(max_length=255, blank=True, null=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Open')
     opened_by = models.CharField(max_length=50, blank=True, null=True)
     date_opened = models.DateTimeField(auto_now_add=False, auto_now=True)
     last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)

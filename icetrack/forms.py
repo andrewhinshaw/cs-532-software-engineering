@@ -30,26 +30,26 @@ class TicketCreateForm(forms.ModelForm):
 class TicketUpdateForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'status']
 
 # ORDERS
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['name']
+        fields = ['name', 'inventory']
 
 class OrderUpdateForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['name']
+        fields = ['name', 'inventory']
 
 # SHIPMENTS
 class ShipmentCreateForm(forms.ModelForm):
     class Meta:
         model = Shipment
-        fields = ['name']
+        fields = ['name', 'order']
 
 class ShipmentUpdateForm(forms.ModelForm):
     class Meta:
         model = Shipment
-        fields = ['name']
+        fields = ['name', 'order']

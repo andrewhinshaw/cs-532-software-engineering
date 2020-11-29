@@ -17,12 +17,12 @@ class TicketCreateAdmin(admin.ModelAdmin):
 class OrderCreateAdmin(admin.ModelAdmin):
     list_display = ['name']
     form = OrderCreateForm
-    search_fields = ['name']
+    search_fields = ['name', 'inventory']
 
 class ShipmentCreateAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'order']
     form = ShipmentCreateForm
-    search_fields = ['name']
+    search_fields = ['name', 'order']
 
 # Register your models here.
 admin.site.register(Order, OrderCreateAdmin)
