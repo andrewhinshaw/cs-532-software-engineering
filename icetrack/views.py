@@ -24,7 +24,7 @@ class InventoryCreateView(FormView):
     # if form.is_valid(self):
     #     form.save()
     template_name = 'create_inventory.html'
-    success_url = '/'
+    success_url = '/success/'
 
     def form_valid(self, form):
         return super().form_valid(form)
@@ -36,6 +36,9 @@ class TicketsPageView(ListView):
 
 class AboutPageView(TemplateView):
     template_name = 'about.html'
+
+class SuccessPageView(TemplateView):
+    template_name = 'success.html'
 
 class RegisterPageView(TemplateView):
     template_name = 'register.html'
