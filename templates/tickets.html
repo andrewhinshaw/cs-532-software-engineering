@@ -23,22 +23,24 @@
                     <thead>
                         <tr>
                             <th>Title</th>
-                            <th>Description</th>
                             <th>Status</th>
-                            <th>Created By</th>
-                            <th>Created Date</th>
+                            <th>Date Created</th>
                             <th>Last Updated</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for ticket in all_tickets_list %}
                             <tr>
                                 <td>{{ ticket.title }}</td>
-                                <td>{{ ticket.description }}</td>
                                 <td>{{ ticket.status }}</td>
-                                <td>{{ ticket.opened_by }}</td>
                                 <td>{{ ticket.date_opened }}</td>
                                 <td>{{ ticket.last_updated }}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="#"><i class="far fa-eye"></i></a>
+                                    <a class="btn btn-success" href="{% url 'update_ticket' ticket.id %}"><i class="fas fa-edit"></i></a>
+                                    <a class="btn btn-danger" href="{% url 'delete_ticket' ticket.id %}"><i class="far fa-trash-alt"></i></a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
