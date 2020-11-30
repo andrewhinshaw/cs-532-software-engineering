@@ -3,6 +3,13 @@
 
 {% block content%}
 <div class="container-fluid">
+    {% if messages %}
+        <div class="alert alert-success" role="">
+            {% for message in messages %}
+                <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">

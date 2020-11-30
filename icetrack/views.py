@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Sum
+from django.contrib import messages
 
 from .models import Order, Product, Inventory, Ticket, Shipment
 from .forms import InventoryCreateForm, InventoryUpdateForm
@@ -40,17 +42,23 @@ class OrderCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
+        messages.success(self.request, 'Order created successfully.')
         return super().form_valid(form)
 
-class OrderUpdateView(UpdateView):
+class OrderUpdateView(SuccessMessageMixin, UpdateView):
     model = Order
     form_class = OrderUpdateForm
     success_url = '/orders/'
     template_name = 'create_order.html'
+    success_message = 'Order updated successfully.'
 
-class OrderDeleteView(DeleteView):
+class OrderDeleteView(SuccessMessageMixin, DeleteView):
     model = Order
     success_url = '/orders/'
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Order deleted successfully.')
+        return super(OrderDeleteView, self).delete(request, *args, **kwargs)
 
 # SHIPMENTS
 class ShipmentsPageView(ListView):
@@ -65,17 +73,23 @@ class ShipmentCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
+        messages.success(self.request, 'Shipment created successfully.')
         return super().form_valid(form)
 
-class ShipmentUpdateView(UpdateView):
+class ShipmentUpdateView(SuccessMessageMixin, UpdateView):
     model = Shipment
     form_class = ShipmentUpdateForm
     success_url = '/shipments/'
     template_name = 'create_shipment.html'
+    success_message = 'Shipment updated successfully.'
 
-class ShipmentDeleteView(DeleteView):
+class ShipmentDeleteView(SuccessMessageMixin, DeleteView):
     model = Shipment
     success_url = '/shipments/'
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Shipment deleted successfully.')
+        return super(ShipmentDeleteView, self).delete(request, *args, **kwargs)
 
 # INVENTORY
 class InventoryPageView(ListView):
@@ -90,17 +104,23 @@ class InventoryCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
+        messages.success(self.request, 'Inventory created successfully.')
         return super().form_valid(form)
 
-class InventoryUpdateView(UpdateView):
+class InventoryUpdateView(SuccessMessageMixin, UpdateView):
     model = Inventory
     form_class = InventoryUpdateForm
     success_url = '/inventory/'
     template_name = 'create_inventory.html'
+    success_message = 'Inventory updated successfully.'
 
-class InventoryDeleteView(DeleteView):
+class InventoryDeleteView(SuccessMessageMixin, DeleteView):
     model = Inventory
     success_url = '/inventory/'
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Inventory deleted successfully.')
+        return super(InventoryDeleteView, self).delete(request, *args, **kwargs)
 
 # TICKETS
 class TicketsPageView(ListView):
@@ -115,17 +135,23 @@ class TicketCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
+        messages.success(self.request, 'Ticket created successfully.')
         return super().form_valid(form)
 
-class TicketUpdateView(UpdateView):
+class TicketUpdateView(SuccessMessageMixin, UpdateView):
     model = Ticket
     form_class = TicketUpdateForm
     success_url = '/tickets/'
     template_name = 'create_ticket.html'
+    success_message = 'Ticket updated successfully.'
 
-class TicketDeleteView(DeleteView):
+class TicketDeleteView(SuccessMessageMixin, DeleteView):
     model = Ticket
     success_url = '/tickets/'
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Ticket deleted successfully.')
+        return super(TicketDeleteView, self).delete(request, *args, **kwargs)
 
 # AUTHENTICATION
 class RegisterPageView(TemplateView):
