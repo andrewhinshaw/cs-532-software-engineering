@@ -1,0 +1,23 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+
+{% block content%}
+<div class="container-fluid">
+    {% if messages %}
+        <div class="alert alert-success" role="">
+            {% for message in messages %}
+                <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Shipment</h1>
+        <!-- <a href="{% url 'create_inventory' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Inventory</a> -->
+    </div>
+    <ul>
+        <li>{{ object.name }}: {{ queryset.order }}</li>
+    </ul>
+</div>
+{% endblock content %}
