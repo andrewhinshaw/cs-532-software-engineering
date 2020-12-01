@@ -1,8 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView
-from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, DetailView
 from django.db.models import Sum
-from django.contrib import messages
 
 from .models import Order, Product, Inventory, Ticket, Shipment
 from .forms import InventoryCreateForm, InventoryUpdateForm
@@ -35,6 +33,10 @@ class OrdersPageView(ListView):
     template_name = 'orders.html'
     context_object_name = 'all_orders_list'
 
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = 'order_detail.html'
+
 class OrderCreateView(FormView):
     form_class = OrderCreateForm
     template_name = 'create_order.html'
@@ -42,29 +44,27 @@ class OrderCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
-        messages.success(self.request, 'Order created successfully.')
         return super().form_valid(form)
 
-class OrderUpdateView(SuccessMessageMixin, UpdateView):
+class OrderUpdateView(UpdateView):
     model = Order
     form_class = OrderUpdateForm
     success_url = '/orders/'
     template_name = 'create_order.html'
-    success_message = 'Order updated successfully.'
 
-class OrderDeleteView(SuccessMessageMixin, DeleteView):
+class OrderDeleteView(DeleteView):
     model = Order
     success_url = '/orders/'
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, 'Order deleted successfully.')
-        return super(OrderDeleteView, self).delete(request, *args, **kwargs)
 
 # SHIPMENTS
 class ShipmentsPageView(ListView):
     model = Shipment
     template_name = 'shipments.html'
     context_object_name = 'all_shipments_list'
+
+class ShipmentDetailView(DetailView):
+    model = Shipment
+    template_name = 'shipment_detail.html'
 
 class ShipmentCreateView(FormView):
     form_class = ShipmentCreateForm
@@ -73,29 +73,32 @@ class ShipmentCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
-        messages.success(self.request, 'Shipment created successfully.')
         return super().form_valid(form)
 
-class ShipmentUpdateView(SuccessMessageMixin, UpdateView):
+class ShipmentUpdateView(UpdateView):
     model = Shipment
     form_class = ShipmentUpdateForm
     success_url = '/shipments/'
     template_name = 'create_shipment.html'
-    success_message = 'Shipment updated successfully.'
 
-class ShipmentDeleteView(SuccessMessageMixin, DeleteView):
+class ShipmentDeleteView(DeleteView):
     model = Shipment
     success_url = '/shipments/'
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, 'Shipment deleted successfully.')
-        return super(ShipmentDeleteView, self).delete(request, *args, **kwargs)
 
 # INVENTORY
 class InventoryPageView(ListView):
     model = Inventory
     template_name = 'inventory.html'
     context_object_name = 'all_inventory_list'
+
+class InventoryDetailView(DetailView):
+    model = Inventory
+    template_name = 'inventory_detail.html'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['now'] = timezone.now()
+    #     return context
 
 class InventoryCreateView(FormView):
     form_class = InventoryCreateForm
@@ -104,29 +107,27 @@ class InventoryCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
-        messages.success(self.request, 'Inventory created successfully.')
         return super().form_valid(form)
 
-class InventoryUpdateView(SuccessMessageMixin, UpdateView):
+class InventoryUpdateView(UpdateView):
     model = Inventory
     form_class = InventoryUpdateForm
     success_url = '/inventory/'
     template_name = 'create_inventory.html'
-    success_message = 'Inventory updated successfully.'
 
-class InventoryDeleteView(SuccessMessageMixin, DeleteView):
+class InventoryDeleteView(DeleteView):
     model = Inventory
     success_url = '/inventory/'
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, 'Inventory deleted successfully.')
-        return super(InventoryDeleteView, self).delete(request, *args, **kwargs)
 
 # TICKETS
 class TicketsPageView(ListView):
     model = Ticket
     template_name = 'tickets.html'
     context_object_name = 'all_tickets_list'
+
+class TicketDetailView(DetailView):
+    model = Ticket
+    template_name = 'ticket_detail.html'
 
 class TicketCreateView(FormView):
     form_class = TicketCreateForm
@@ -135,23 +136,17 @@ class TicketCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
-        messages.success(self.request, 'Ticket created successfully.')
         return super().form_valid(form)
 
-class TicketUpdateView(SuccessMessageMixin, UpdateView):
+class TicketUpdateView(UpdateView):
     model = Ticket
     form_class = TicketUpdateForm
     success_url = '/tickets/'
     template_name = 'create_ticket.html'
-    success_message = 'Ticket updated successfully.'
 
-class TicketDeleteView(SuccessMessageMixin, DeleteView):
+class TicketDeleteView(DeleteView):
     model = Ticket
     success_url = '/tickets/'
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, 'Ticket deleted successfully.')
-        return super(TicketDeleteView, self).delete(request, *args, **kwargs)
 
 # AUTHENTICATION
 class RegisterPageView(TemplateView):

@@ -5,13 +5,6 @@
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-    {% if messages %}
-        <div class="alert alert-success" role="">
-            {% for message in messages %}
-                <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
-            {% endfor %}
-        </div>
-    {% endif %}
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -40,11 +33,19 @@
                         {% for ticket in all_tickets_list %}
                             <tr>
                                 <td>{{ ticket.title }}</td>
-                                <td>{{ ticket.status }}</td>
+                                <td>
+                                    {% if ticket.status == 'Open' %}
+                                        <span class="badge badge-primary">{{ticket.status}}</span>
+                                    {% elif ticket.status == 'On Hold' %}
+                                        <span class="badge badge-warning">{{ticket.status}}</span>
+                                    {% elif ticket.status == 'Resolved' %}
+                                        <span class="badge badge-success">{{ticket.status}}</span>
+                                    {% endif %}
+                                </td>
                                 <td>{{ ticket.date_opened }}</td>
                                 <td>{{ ticket.last_updated }}</td>
                                 <td>
-                                    <!-- <a class="btn btn-primary" href="#"><i class="far fa-eye"></i></a> -->
+                                    <a class="btn btn-primary" href="{% url 'ticket_detail' ticket.id %}"><i class="far fa-eye"></i></a>
                                     <a class="btn btn-success" href="{% url 'update_ticket' ticket.id %}"><i class="fas fa-edit"></i></a>
                                     <a class="btn btn-danger" href="{% url 'delete_ticket' ticket.id %}"><i class="far fa-trash-alt"></i></a>
                                 </td>
