@@ -13,11 +13,98 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Ticket</h1>
-        <!-- <a href="{% url 'create_inventory' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Inventory</a> -->
+        <h1 class="h3 mb-0 text-gray-800">Tickets</h1>
+        <div>
+            <a href="{% url 'tickets' %}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-chevron-left fa-sm text-white-50"></i> All Tickets</a>
+            <a href="{% url 'update_ticket' ticket.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Ticket</a>
+        </div>
+            </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Ticket Details</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+
+                <!-- Column A -->
+                <div class="col">
+
+                    <!-- Cell A1 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <strong style="color:#000000">Title</strong>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.title }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Cell A2 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <strong style="color:#000000">Description</strong>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.description }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Cell A3 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <strong style="color:#000000">Opened By</strong>
+                        </div>
+                        <div class="col-4">
+                            {% if object.created_by is None %}
+                                <p>N/A</p>
+                            {% else %}
+                                <p>{{ object.created_by }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Cell A4 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <strong style="color:#000000">Created Date</strong>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.date_opened }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column B -->
+                <div class="col">
+
+                    <!-- Cell B1 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <strong style="color:#000000">Status</strong>
+                        </div>
+                        <div class="col-4">
+                            {% if object.status == 'Open' %}
+                                <p><span class="badge badge-primary">{{object.status}}</span></p>
+                            {% elif object.status == 'On Hold' %}
+                                <p><span class="badge badge-warning">{{object.status}}</span></p>
+                            {% elif object.status == 'Resolved' %}
+                                <p><span class="badge badge-success">{{object.status}}</span></p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Cell B2 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <strong style="color:#000000">Last Updated</strong>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.last_updated }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <ul>
-        <li>{{ object.title }}: {{ object.status }}</li>
-    </ul>
 </div>
 {% endblock content %}

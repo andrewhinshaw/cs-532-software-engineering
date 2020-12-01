@@ -33,7 +33,15 @@
                         {% for ticket in all_tickets_list %}
                             <tr>
                                 <td>{{ ticket.title }}</td>
-                                <td>{{ ticket.status }}</td>
+                                <td>
+                                    {% if ticket.status == 'Open' %}
+                                        <span class="badge badge-primary">{{ticket.status}}</span>
+                                    {% elif ticket.status == 'On Hold' %}
+                                        <span class="badge badge-warning">{{ticket.status}}</span>
+                                    {% elif ticket.status == 'Resolved' %}
+                                        <span class="badge badge-success">{{ticket.status}}</span>
+                                    {% endif %}
+                                </td>
                                 <td>{{ ticket.date_opened }}</td>
                                 <td>{{ ticket.last_updated }}</td>
                                 <td>

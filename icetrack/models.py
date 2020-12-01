@@ -52,7 +52,7 @@ class Ticket(models.Model):
     description = models.TextField(max_length=255, blank=True, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Open')
     opened_by = models.CharField(max_length=50, blank=True, null=True)
-    date_opened = models.DateTimeField(auto_now_add=False, auto_now=True)
+    date_opened = models.DateTimeField(auto_now_add=True, auto_now=False)
     last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     export_to_CSV = models.BooleanField(default=False)
 
