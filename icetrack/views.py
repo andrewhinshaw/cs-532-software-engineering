@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView
+from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, DetailView
 from django.db.models import Sum
 
 from .models import Order, Product, Inventory, Ticket, Shipment
@@ -33,6 +33,10 @@ class OrdersPageView(ListView):
     template_name = 'orders.html'
     context_object_name = 'all_orders_list'
 
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = 'order_detail.html'
+
 class OrderCreateView(FormView):
     form_class = OrderCreateForm
     template_name = 'create_order.html'
@@ -57,6 +61,10 @@ class ShipmentsPageView(ListView):
     model = Shipment
     template_name = 'shipments.html'
     context_object_name = 'all_shipments_list'
+
+class ShipmentDetailView(DetailView):
+    model = Shipment
+    template_name = 'shipment_detail.html'
 
 class ShipmentCreateView(FormView):
     form_class = ShipmentCreateForm
@@ -83,6 +91,15 @@ class InventoryPageView(ListView):
     template_name = 'inventory.html'
     context_object_name = 'all_inventory_list'
 
+class InventoryDetailView(DetailView):
+    model = Inventory
+    template_name = 'inventory_detail.html'
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['now'] = timezone.now()
+    #     return context
+
 class InventoryCreateView(FormView):
     form_class = InventoryCreateForm
     template_name = 'create_inventory.html'
@@ -107,6 +124,10 @@ class TicketsPageView(ListView):
     model = Ticket
     template_name = 'tickets.html'
     context_object_name = 'all_tickets_list'
+
+class TicketDetailView(DetailView):
+    model = Ticket
+    template_name = 'ticket_detail.html'
 
 class TicketCreateView(FormView):
     form_class = TicketCreateForm
