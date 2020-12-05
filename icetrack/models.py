@@ -4,14 +4,22 @@ from django.urls import reverse
 # Create your models here.
 class Order(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
-    inventory = models.ManyToManyField('Inventory', blank=True)
+    inventory_items = models.ManyToManyField('Inventory', blank=True)
+    location = models.CharField(max_length=50, blank=True, null=True)
+    is_express_shipping = models.BooleanField(default=False, blank=True, null=True)
+    order_date = models.DateTimeField(auto_now_add=True, auto_now=False)
+    shipped_date = models.DateTimeField(blank=True, null=True, auto_now_add=False, auto_now=False)
 
     def __str__(self):
         return str(self.name)
 
 class Shipment(models.Model):
     name = models.CharField(max_length=50, blank=True, null=True)
-    order = models.ForeignKey('Order', on_delete=models.CASCADE, blank=True, null=True)
+    attached_order = models.ForeignKey('Order', on_delete=models.CASCADE, blank=True, null=True)
+    location = models.CharField(max_length=50, blank=True, null=True)
+    is_express_shipping = models.BooleanField(default=False, blank=True, null=True)
+    order_date = models.DateTimeField(auto_now_add=True, auto_now=False)
+    shipped_date = models.DateTimeField(blank=True, null=True, auto_now_add=False, auto_now=False)
 
     def __str__(self):
         return str(self.name)

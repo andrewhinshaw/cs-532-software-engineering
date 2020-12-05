@@ -14,12 +14,51 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Shipments</h1>
-        <a href="{% url 'create_shipment' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Shipment</a>
+        <div>
+            <a href="{% url 'create_ticket' %}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm"><i class="fas fa-flag fa-sm text-white-50"></i> Open Ticket</a>
+            <a href="{% url 'create_shipment' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Shipment</a>
+        </div>
     </div>
-    <ul>
-        {% for shipment in all_shipments_list %}
-            <li>{{ shipment.name }}</li>
-        {% endfor %}
-    </ul>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Shipments</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Order Number</th>
+                            <th>Location</th>
+                            <th>Express Shipping</th>
+                            <th>Order Date</th>
+                            <th>Date Fulfilled</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for shipment in all_shipments_list %}
+                            <tr>
+                                <td>{{ shipment.name }}</td>
+                                <td>{{ shipment.attached_order }}</td>
+                                <td>{{ shipment.location }}</td>
+                                <td>{{ shipment.is_express_shipping }}</td>
+                                <td>{{ shipment.order_date }}</td>
+                                <td>{{ shipment.shipped_date }}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'shipment_detail' shipment.id %}"><i class="far fa-eye"></i></a>
+                                    <a class="btn btn-success" href="{% url 'update_shipment' shipment.id %}"><i class="fas fa-edit"></i></a>
+                                    <a class="btn btn-danger" href="{% url 'delete_shipment' shipment.id %}"><i class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}

@@ -20,9 +20,9 @@ class OrderCreateAdmin(admin.ModelAdmin):
     search_fields = ['name', 'inventory']
 
 class ShipmentCreateAdmin(admin.ModelAdmin):
-    list_display = ['name', 'order']
+    list_display = ['name', 'attached_order']
     form = ShipmentCreateForm
-    search_fields = ['name', 'order']
+    search_fields = ['name', 'attached_order']
 
 # Register your models here.
 admin.site.register(Order, OrderCreateAdmin)

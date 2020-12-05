@@ -38,6 +38,7 @@
                             <th># of Commited Orders</th>
                             <th>State</th>
                             <th>Last Edit By</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +48,7 @@
                                 <td>{{ inventory.quantity }}</td>
                                 <td>{{ inventory.package_size }}</td>
                                 <td>{{ inventory.num_orders }}</td>
+                                <td>{{ inventory.state }}</td>
                                 <td>{{ inventory.received_by }}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{% url 'inventory_detail' inventory.id %}"><i class="far fa-eye"></i></a>
