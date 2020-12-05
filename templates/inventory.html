@@ -1,8 +1,10 @@
-<!-- templates/home.html -->
+<!-- templates/inventory.html -->
 {% extends 'base.html' %}
 
 {% block content%}
+
 <div class="container-fluid">
+
     {% if messages %}
         <div class="alert alert-success" role="">
             {% for message in messages %}
@@ -14,8 +16,51 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Inventory</h1>
-        <a href="{% url 'create_inventory' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Inventory</a>
+        <div>
+            <a href="{% url 'create_ticket' %}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm"><i class="fas fa-flag fa-sm text-white-50"></i> Open Ticket</a>
+            <a href="{% url 'create_inventory' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Inventory</a>
+        </div>
     </div>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Inventory</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Flavor</th>
+                            <th>Units Available</th>
+                            <th>Package Size</th>
+                            <th># of Commited Orders</th>
+                            <th>State</th>
+                            <th>Last Edit By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for inventory in all_inventory_list %}
+                            <tr>
+                                <td>{{ inventory.item_name }}</td>
+                                <td>{{ inventory.quantity }}</td>
+                                <td>{{ inventory.package_size }}</td>
+                                <td>{{ inventory.num_orders }}</td>
+                                <td>{{ inventory.received_by }}</td>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'inventory_detail' inventory.id %}"><i class="far fa-eye"></i></a>
+                                    <a class="btn btn-success" href="{% url 'update_inventory' inventory.id %}"><i class="fas fa-edit"></i></a>
+                                    <a class="btn btn-danger" href="{% url 'delete_inventory' inventory.id %}"><i class="far fa-trash-alt"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <ul>
         {% for inventory in all_inventory_list %}
             <li>{{ inventory.item_name }}: {{ inventory.quantity }}</li>

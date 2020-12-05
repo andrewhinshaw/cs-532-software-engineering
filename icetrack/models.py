@@ -23,10 +23,21 @@ class Product(models.Model):
         return str(self.title)
 
 class Inventory(models.Model):
+    STATE_CHOICES = [
+        ('Actual', 'Actual'),
+        ('Planned', 'Planned'),
+        ('Spoilage', 'Spoilage'),
+        ('Defective', 'Defective'),
+    ]
+
     item_name = models.CharField(max_length=50, blank=True, null=True)
     quantity = models.IntegerField(default='0', blank=True, null=True)
+    package_size = models.DecimalField(default='0', blank=True, null=True, \
+        max_digits=3, decimal_places=1)
+    state = models.CharField(max_length=10, choices=STATE_CHOICES, default='Planned')
     received_quantity = models.IntegerField(default='0', blank=True, null=True)
     received_by = models.CharField(max_length=50, blank=True, null=True)
+    num_orders = models.IntegerField(default='0', blank=True, null=True)
     sold_quantity = models.IntegerField(default='0', blank=True, null=True)
     sold_by = models.CharField(max_length=50, blank=True, null=True)
     sold_to = models.CharField(max_length=50, blank=True, null=True)
