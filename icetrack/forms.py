@@ -52,4 +52,4 @@ class ShipmentCreateForm(forms.ModelForm):
 class ShipmentUpdateForm(forms.ModelForm):
     class Meta:
         model = Shipment
-        fields = ['name', 'attached_order']
+        fields = ['name', 'status']

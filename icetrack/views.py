@@ -8,6 +8,8 @@ from .forms import TicketCreateForm, TicketUpdateForm
 from .forms import OrderCreateForm, OrderUpdateForm
 from .forms import ShipmentCreateForm, ShipmentUpdateForm
 
+import datetime
+
 
 # GENERAL
 class HomePageView(TemplateView):
@@ -80,6 +82,12 @@ class ShipmentUpdateView(UpdateView):
     form_class = ShipmentUpdateForm
     success_url = '/shipments/'
     template_name = 'create_shipment.html'
+
+    def form_valid(self, form):
+        if self.object.status == 'Shipped':
+            self.object.shipped_date = datetime.datetime.now()
+        self.object = form.save()
+        return super().form_valid(form)
 
 class ShipmentDeleteView(DeleteView):
     model = Shipment

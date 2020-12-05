@@ -3,9 +3,16 @@ from django.urls import reverse
 
 # Create your models here.
 class Order(models.Model):
+    STATUS_CHOICES = [
+        ('Placed', 'Placed'),
+        ('Fulfilled', 'Fulfilled'),
+        ('Canceled', 'Canceled'),
+    ]
+
     name = models.CharField(max_length=50, blank=True, null=True)
     inventory_items = models.ManyToManyField('Inventory', blank=True)
     location = models.CharField(max_length=50, blank=True, null=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Placed')
     is_express_shipping = models.BooleanField(default=False, blank=True, null=True)
     order_date = models.DateTimeField(auto_now_add=True, auto_now=False)
     shipped_date = models.DateTimeField(blank=True, null=True, auto_now_add=False, auto_now=False)
@@ -14,9 +21,19 @@ class Order(models.Model):
         return str(self.name)
 
 class Shipment(models.Model):
+    STATUS_CHOICES = [
+        ('Unshipped', 'Unshipped'),
+        ('Shipped', 'Shipped'),
+        ('Lost', 'Lost'),
+        ('Delayed', 'Delayed'),
+        ('Delivered', 'Delivered'),
+        ('Canceled', 'Canceled'),
+    ]
+
     name = models.CharField(max_length=50, blank=True, null=True)
     attached_order = models.ForeignKey('Order', on_delete=models.CASCADE, blank=True, null=True)
     location = models.CharField(max_length=50, blank=True, null=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Unshipped')
     is_express_shipping = models.BooleanField(default=False, blank=True, null=True)
     order_date = models.DateTimeField(auto_now_add=True, auto_now=False)
     shipped_date = models.DateTimeField(blank=True, null=True, auto_now_add=False, auto_now=False)

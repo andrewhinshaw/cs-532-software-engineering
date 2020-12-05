@@ -14,10 +14,123 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Shipment</h1>
-        <!-- <a href="{% url 'create_inventory' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Inventory</a> -->
+        <div>
+            <a href="{% url 'shipments' %}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-chevron-left fa-sm text-white-50"></i> All Shipments</a>
+            <a href="{% url 'update_shipment' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Shipment</a>
+            <a href="{% url 'delete_shipment' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-trash fa-sm text-white-50"></i> Delete Shipment</a>
+        </div>
     </div>
-    <ul>
-        <li>{{ object.name }}</li>
-    </ul>
+
+    <!-- Inventory Details -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Shipment Details</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+
+                <!-- Column A -->
+                <div class="col">
+
+                    <!-- Cell A1 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Name</strong></p>
+                        </div>
+                        <div class="col-4" style="width: 8rem;">
+                            <p>{{ object.name }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Cell A2 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Location</strong></p>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.location }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Cell A3 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Order</strong></p>
+                        </div>
+                        <div class="col-4">
+                            {% if object.attached_order is None %}
+                                <p>N/A</p>
+                            {% else %}
+                                <p><a href="{% url 'order_detail' object.attached_order.id  %}">{{ object.attached_order }}</a></p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Cell A4 -->
+                    <div class="row">
+                        <div class="col-2 ">
+                            <p><strong style="color:#000000">Express Shipping</strong></p>
+                        </div>
+                        <div class="col-4">
+                            {% if object.is_express_shipping is False %}
+                                <p>No</p>
+                            {% elif object.is_express_shipping is True %}
+                                <p>Yes</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Cell A5 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Order Date</strong></p>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.attached_order.order_date }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column B -->
+                <div class="col">
+
+                    <!-- Cell B1 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Order  Status</strong></p>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.attached_order.status }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Cell B2 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Shipment Status</strong></p>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.status }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Cell B3 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Shipped Date</strong></p>
+                        </div>
+                        <div class="col-4">
+                            {% if object.shipped_date is None %}
+                                <p>N/A</p>
+                            {% else %}
+                                <p>{{ object.shipped_date }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}

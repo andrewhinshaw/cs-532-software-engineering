@@ -32,10 +32,11 @@
                         <tr>
                             <th>Name</th>
                             <th>Order Number</th>
+                            <th>Status</th>
                             <th>Location</th>
                             <th>Express Shipping</th>
                             <th>Order Date</th>
-                            <th>Date Fulfilled</th>
+                            <th>Date Shipped</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -43,9 +44,22 @@
                         {% for shipment in all_shipments_list %}
                             <tr>
                                 <td>{{ shipment.name }}</td>
-                                <td>{{ shipment.attached_order }}</td>
+                                <td>
+                                    {% if shipment.attached_order is None %}
+                                        <p>N/A</p>
+                                    {% else %}
+                                        <p><a href="{% url 'order_detail' shipment.attached_order.id  %}">{{ shipment.attached_order }}</a></p>
+                                    {% endif %}
+                                </td>
                                 <td>{{ shipment.location }}</td>
-                                <td>{{ shipment.is_express_shipping }}</td>
+                                <td>{{ shipment.status }}</td>
+                                <td>
+                                    {% if shipment.is_express_shipping is False %}
+                                        No
+                                    {% elif shipment.is_express_shipping is True %}
+                                        Yes
+                                    {% endif %}
+                                </td>
                                 <td>{{ shipment.order_date }}</td>
                                 <td>{{ shipment.shipped_date }}</td>
                                 <td>
