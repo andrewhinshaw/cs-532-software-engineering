@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Order, Product, Inventory, Ticket, Shipment
+from .models import Order, Product, Inventory, Ticket, Shipment, OrderItem
 from .forms import InventoryCreateForm, TicketCreateForm, \
     OrderCreateForm, ShipmentCreateForm
 
@@ -26,6 +26,7 @@ class ShipmentCreateAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Order, OrderCreateAdmin)
+admin.site.register(OrderItem)
 admin.site.register(Shipment, ShipmentCreateAdmin)
 admin.site.register(Ticket, TicketCreateAdmin)
 admin.site.register(Inventory, InventoryCreateAdmin)

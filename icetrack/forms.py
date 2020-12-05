@@ -5,7 +5,12 @@ from .models import Inventory, Order, Product, Ticket, Shipment
 class InventoryCreateForm(forms.ModelForm):
     class Meta:
         model = Inventory
-        fields = ['item_name', 'quantity']
+        labels = {
+            'item_name': 'Flavor',
+            'package_size': 'Package Size (oz)',
+            'created_by': 'Created By'
+        }
+        fields = ['item_name', 'state', 'quantity', 'package_size', 'created_by']
 
     def clean_item_name(self):
         item_name = self.cleaned_data.get('item_name')
@@ -19,7 +24,7 @@ class InventoryCreateForm(forms.ModelForm):
 class InventoryUpdateForm(forms.ModelForm):
     class Meta:
         model = Inventory
-        fields = ['item_name', 'quantity']
+        fields = ['item_name', 'state', 'quantity']
 
 # TICKETS
 class TicketCreateForm(forms.ModelForm):
@@ -36,12 +41,12 @@ class TicketUpdateForm(forms.ModelForm):
 class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'inventory_items']
+        fields = ['name', 'items']
 
 class OrderUpdateForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'inventory_items']
+        fields = ['name', 'items']
 
 # SHIPMENTS
 class ShipmentCreateForm(forms.ModelForm):

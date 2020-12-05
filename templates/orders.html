@@ -18,7 +18,7 @@
     </div>
     <ul>
         {% for order in all_orders_list %}
-            <li>{{ order.id }}: {{ order.name }}: {% for item in order.inventory_items.all %} {{ item }}, {% endfor %}</li>
+            <li>{{ order.id }}: {{ order.name }}</li>
         {% endfor %}
     </ul>
 </div>

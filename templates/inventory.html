@@ -37,7 +37,7 @@
                             <th>Package Size</th>
                             <th># of Commited Orders</th>
                             <th>State</th>
-                            <th>Last Edit By</th>
+                            <th>Created By</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -45,11 +45,29 @@
                         {% for inventory in all_inventory_list %}
                             <tr>
                                 <td>{{ inventory.item_name }}</td>
-                                <td>{{ inventory.quantity }}</td>
-                                <td>{{ inventory.package_size }}</td>
-                                <td>{{ inventory.num_orders }}</td>
+                                <td>
+                                    {% if inventory.quantity == 0 or inventory.quantity is None %}
+                                        -
+                                    {% else %}
+                                        {{ inventory.quantity }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if inventory.package_size == 0 or inventory.package_size is None %}
+                                        -
+                                    {% else %}
+                                        {{ inventory.package_size }} oz
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if inventory.num_orders == 0 or inventory.num_orders is None %}
+                                        -
+                                    {% else %}
+                                        {{ inventory.num_orders }} oz
+                                    {% endif %}
+                                </td>
                                 <td>{{ inventory.state }}</td>
-                                <td>{{ inventory.received_by }}</td>
+                                <td>{{ inventory.created_by }}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{% url 'inventory_detail' inventory.id %}"><i class="far fa-eye"></i></a>
                                     <a class="btn btn-success" href="{% url 'update_inventory' inventory.id %}"><i class="fas fa-edit"></i></a>

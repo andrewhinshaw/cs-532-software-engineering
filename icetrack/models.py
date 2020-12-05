@@ -10,7 +10,7 @@ class Order(models.Model):
     ]
 
     name = models.CharField(max_length=50, blank=True, null=True)
-    inventory_items = models.ManyToManyField('Inventory', blank=True)
+    items = models.ManyToManyField('Inventory', blank=True, through='OrderItem')
     location = models.CharField(max_length=50, blank=True, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Placed')
     is_express_shipping = models.BooleanField(default=False, blank=True, null=True)
@@ -19,6 +19,14 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+class OrderItem(models.Model):
+    order = models.ForeignKey('Order', on_delete=models.CASCADE)
+    inventory_item = models.ForeignKey('Inventory', on_delete=models.CASCADE)
+    quantity_on_order = models.IntegerField(default='0', blank=True, null=True)
+
+    def __str__(self):
+        return str(self.quantity_on_order)
 
 class Shipment(models.Model):
     STATUS_CHOICES = [
@@ -55,10 +63,9 @@ class Inventory(models.Model):
         ('Defective', 'Defective'),
     ]
 
-    item_name = models.CharField(max_length=50, blank=True, null=True)
+    item_name = models.CharField(max_length=50, null=True)
     quantity = models.IntegerField(default='0', blank=True, null=True)
-    package_size = models.DecimalField(default='0', blank=True, null=True, \
-        max_digits=3, decimal_places=1)
+    package_size = models.IntegerField(default='0', blank=True, null=True)
     state = models.CharField(max_length=10, choices=STATE_CHOICES, default='Planned')
     received_quantity = models.IntegerField(default='0', blank=True, null=True)
     received_by = models.CharField(max_length=50, blank=True, null=True)
@@ -66,7 +73,7 @@ class Inventory(models.Model):
     sold_quantity = models.IntegerField(default='0', blank=True, null=True)
     sold_by = models.CharField(max_length=50, blank=True, null=True)
     sold_to = models.CharField(max_length=50, blank=True, null=True)
-    created_by = models.CharField(max_length=50, blank=True, null=True)
+    created_by = models.CharField(max_length=50, blank=True, null=True, default='Administrator')
     reorder_level = models.IntegerField(default='0', blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, auto_now=False)
     last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
