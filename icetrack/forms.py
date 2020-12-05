@@ -25,7 +25,7 @@ class InventoryUpdateForm(forms.ModelForm):
 class TicketCreateForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ['title', 'description']
+        fields = ['title', 'description', 'subsystem']
 
 class TicketUpdateForm(forms.ModelForm):
     class Meta:

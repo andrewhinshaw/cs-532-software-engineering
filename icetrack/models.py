@@ -84,10 +84,19 @@ class Ticket(models.Model):
         ('On Hold', 'On Hold'),
         ('Resolved', 'Resolved')
     ]
+    SUBSYSTEM_CHOICES = [
+        ('N/A', 'N/A'),
+        ('Dashboard', 'Dashboard'),
+        ('Orders', 'Orders'),
+        ('Inventory', 'Inventory'),
+        ('Shipments', 'Shipments'),
+        ('Tickets', 'Tickets'),
+    ]
 
     title = models.CharField(max_length=50, blank=True, null=True)
     description = models.TextField(max_length=255, blank=True, null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Open')
+    subsystem = models.CharField(max_length=10, choices=SUBSYSTEM_CHOICES, default='N/A')
     opened_by = models.CharField(max_length=50, blank=True, null=True)
     date_opened = models.DateTimeField(auto_now_add=True, auto_now=False)
     last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)

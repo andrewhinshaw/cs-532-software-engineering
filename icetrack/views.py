@@ -142,6 +142,19 @@ class TicketCreateView(FormView):
     template_name = 'create_ticket.html'
     success_url = '/tickets/'
 
+    def get_initial(self):
+        if 'ticket' in self.request.META['HTTP_REFERER']:
+            subsystem = 'Tickets'
+        elif 'order' in self.request.META['HTTP_REFERER']:
+            subsystem = 'Orders'
+        elif 'inventory' in self.request.META['HTTP_REFERER']:
+            subsystem = 'Inventory'
+        elif 'shipment' in self.request.META['HTTP_REFERER']:
+            subsystem = 'Shipments'
+        return {
+            'subsystem': subsystem,
+        }
+
     def form_valid(self, form):
         self.object = form.save()
         return super().form_valid(form)
