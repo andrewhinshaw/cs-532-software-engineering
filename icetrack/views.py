@@ -95,10 +95,10 @@ class InventoryDetailView(DetailView):
     model = Inventory
     template_name = 'inventory_detail.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['now'] = timezone.now()
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['orders'] = Order.objects.filter(inventory_items=self.kwargs['pk'])
+        return context
 
 class InventoryCreateView(FormView):
     form_class = InventoryCreateForm

@@ -14,10 +14,142 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Inventory</h1>
+        <div>
+            <a href="{% url 'inventory' %}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-chevron-left fa-sm text-white-50"></i> All Inventory</a>
+            <a href="{% url 'update_inventory' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Inventory</a>
+            <a href="{% url 'delete_inventory' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-trash fa-sm text-white-50"></i> Delete Inventory</a>
+        </div>
         <!-- <a href="{% url 'create_inventory' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Inventory</a> -->
     </div>
-    <ul>
-        <li>{{ object.item_name }}: {{ object.quantity }}</li>
-    </ul>
+
+    <!-- Inventory Details -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Inventory Details</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+
+                <!-- Column A -->
+                <div class="col">
+
+                    <!-- Cell A1 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Flavor</strong></p>
+                        </div>
+                        <div class="col-4" style="width: 8rem;">
+                            <p>{{ object.item_name }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Cell A2 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Quantity</strong></p>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.quantity }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Cell A3 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Package Size</strong></p>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.package_size }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Cell A4 -->
+                    <div class="row">
+                        <div class="col-2 ">
+                            <p><strong style="color:#000000">Created By</strong></p>
+                        </div>
+                        <div class="col-4">
+                            {% if object.created_by is None %}
+                                <p>N/A</p>
+                            {% else %}
+                                <p>{{ object.created_by }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Cell A5 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Created Date</strong></p>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.date_created }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column B -->
+                <div class="col">
+
+                    <!-- Cell B1 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">State</strong></p>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.state }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Cell B2 -->
+                    <div class="row">
+                        <div class="col-2">
+                            <p><strong style="color:#000000">Last Updated</strong></p>
+                        </div>
+                        <div class="col-4">
+                            <p>{{ object.last_updated }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Orders</h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Created By</th>
+                            <th>Order Date</th>
+                            <th>Shipped Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <td>{{ order.id }}</td>
+                                <td>{{ order.name }}</td>
+                                <td>0</td>
+                                <td>Administrator</td>
+                                <td>{{ order.order_date }}</td>
+                                <td>{{ order.shipped_date }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock content %}
