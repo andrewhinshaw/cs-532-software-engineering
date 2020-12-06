@@ -21,18 +21,22 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                {% if 'update' in request.path %}
+                Order Quantities
+                <!-- {% if 'update' in request.path %}
                     Edit Order
                 {% else %}
                     Create Order
-                {% endif %}
+                {% endif %} -->
             </h6>
         </div>
+
         <div class="card-body">
-			<form method='POST' action=''>{% csrf_token %}
-				<div class="form-group">
-					{{form|crispy}}
-				</div>
+			<form class="form" method='POST' action=''>
+                {% csrf_token %}
+                {{ formset.management_form }}
+                {% for form in formset %}
+                    {{ form|crispy }}
+                {% endfor %}
 		        <input type="submit" class="btn btn-primary" value='Submit'/>
 				<a href="{{ view.get_success_url }}" class="btn btn-secondary">Cancel</a>
 		    </form>

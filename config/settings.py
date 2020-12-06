@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'icetrack', # new
     'crispy_forms', # new
+    'django_select2', # new
+    'extra_views', # new
 ]
 
 MIDDLEWARE = [

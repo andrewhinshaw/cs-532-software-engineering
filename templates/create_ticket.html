@@ -3,6 +3,7 @@
 
 {% load crispy_forms_tags %}
 
+
 {% block content%}
 
 <div class="container-fluid">
@@ -29,9 +30,9 @@
             </h6>
         </div>
         <div class="card-body">
-			<form method='POST' action=''>{% csrf_token %}
+			<form method='POST' class="uniForm" action=''>{% csrf_token %}
 				<div class="form-group">
-					{{form|crispy}}
+					{{ form|crispy }}
 				</div>
 		        <input type="submit" class="btn btn-primary" value='Submit'/>
 				<a href="{{ view.get_success_url }}" class="btn btn-secondary">Cancel</a>

@@ -1,11 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.forms import modelformset_factory
 from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, DetailView
 from django.db.models import Sum
+from django.contrib import messages
 
-from .models import Order, Product, Inventory, Ticket, Shipment
+from extra_views import ModelFormSetView, InlineFormSetFactory, CreateWithInlinesView
+
+from .models import Order, Product, Inventory, Ticket, Shipment, OrderItem
 from .forms import InventoryCreateForm, InventoryUpdateForm
 from .forms import TicketCreateForm, TicketUpdateForm
-from .forms import OrderCreateForm, OrderUpdateForm
+from .forms import OrderCreateForm, OrderQuantitiesForm, OrderUpdateForm
 from .forms import ShipmentCreateForm, ShipmentUpdateForm
 
 import datetime
@@ -42,11 +47,31 @@ class OrderDetailView(DetailView):
 class OrderCreateView(FormView):
     form_class = OrderCreateForm
     template_name = 'create_order.html'
-    success_url = '/orders/'
+    success_url = 'order_quantities'
 
     def form_valid(self, form):
         self.object = form.save()
-        return super().form_valid(form)
+        return redirect('order_quantities', pk=self.object.pk)
+
+class OrderQuantitiesView(ModelFormSetView):
+    model = OrderItem
+    form_class = OrderQuantitiesForm
+    template_name = 'order_quantities.html'
+    factory_kwargs = {'extra': 0}
+
+    def get_success_url(self):
+        order_id = self.kwargs['pk']
+        return reverse('order_detail', kwargs = {'pk': order_id})
+
+    def get_queryset(self):
+        order_id = self.kwargs['pk']
+        queryset = OrderItem.objects.filter(order=order_id)
+        return queryset
+
+    def formset_valid(self, formset):
+        self.object = formset.save()
+        messages.success(self.request, 'Order created successfully.')
+        return super().formset_valid(formset)
 
 class OrderUpdateView(UpdateView):
     model = Order
@@ -54,9 +79,19 @@ class OrderUpdateView(UpdateView):
     success_url = '/orders/'
     template_name = 'create_order.html'
 
+    def form_valid(self, form):
+        self.object = form.save()
+        messages.success(self.request, 'Order updated successfully.')
+        return redirect('order_detail', pk=self.object.pk)
+
 class OrderDeleteView(DeleteView):
     model = Order
     success_url = '/orders/'
+    success_message = "Order deleted successfully."
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(OrderDeleteView, self).delete(self.request, *args, **kwargs)
 
 # SHIPMENTS
 class ShipmentsPageView(ListView):
@@ -75,6 +110,7 @@ class ShipmentCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
+        messages.success(self.request, 'Shipment created successfully.')
         return super().form_valid(form)
 
 class ShipmentUpdateView(UpdateView):
@@ -87,11 +123,17 @@ class ShipmentUpdateView(UpdateView):
         if self.object.status == 'Shipped':
             self.object.shipped_date = datetime.datetime.now()
         self.object = form.save()
+        messages.success(self.request, 'Shipment updated successfully.')
         return super().form_valid(form)
 
 class ShipmentDeleteView(DeleteView):
     model = Shipment
     success_url = '/shipments/'
+    success_message = "Shipment deleted successfully."
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(ShipmentDeleteView, self).delete(self.request, *args, **kwargs)
 
 # INVENTORY
 class InventoryPageView(ListView):
@@ -115,6 +157,7 @@ class InventoryCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
+        messages.success(self.request, 'Inventory created successfully.')
         return super().form_valid(form)
 
 class InventoryUpdateView(UpdateView):
@@ -123,9 +166,19 @@ class InventoryUpdateView(UpdateView):
     success_url = '/inventory/'
     template_name = 'create_inventory.html'
 
+    def form_valid(self, form):
+        self.object = form.save()
+        messages.success(self.request, 'Inventory updated successfully.')
+        return super().form_valid(form)
+
 class InventoryDeleteView(DeleteView):
     model = Inventory
     success_url = '/inventory/'
+    success_message = "Inventory deleted successfully."
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(InventoryDeleteView, self).delete(self.request, *args, **kwargs)
 
 # TICKETS
 class TicketsPageView(ListView):
@@ -157,6 +210,7 @@ class TicketCreateView(FormView):
 
     def form_valid(self, form):
         self.object = form.save()
+        messages.success(self.request, 'Ticket created successfully.')
         return super().form_valid(form)
 
 class TicketUpdateView(UpdateView):
@@ -165,9 +219,19 @@ class TicketUpdateView(UpdateView):
     success_url = '/tickets/'
     template_name = 'create_ticket.html'
 
+    def form_valid(self, form):
+        self.object = form.save()
+        messages.success(self.request, 'Ticket updated successfully.')
+        return super().form_valid(form)
+
 class TicketDeleteView(DeleteView):
     model = Ticket
     success_url = '/tickets/'
+    success_message = "Ticket deleted successfully."
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(TicketDeleteView, self).delete(self.request, *args, **kwargs)
 
 # AUTHENTICATION
 class RegisterPageView(TemplateView):

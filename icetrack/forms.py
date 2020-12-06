@@ -1,5 +1,7 @@
 from django import forms
-from .models import Inventory, Order, Product, Ticket, Shipment
+from django_select2 import forms as s2forms
+
+from .models import Inventory, Order, Product, Ticket, Shipment, OrderItem
 
 # INVENTORY
 class InventoryCreateForm(forms.ModelForm):
@@ -42,6 +44,18 @@ class OrderCreateForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['name', 'items']
+
+    def __init__(self, *args, **kwargs):
+        super(OrderCreateForm, self).__init__(*args, **kwargs)
+        self.fields['items'].queryset = Inventory.objects.filter(state='Actual', quantity__gt=0)
+
+class OrderQuantitiesForm(forms.ModelForm):
+    class Meta:
+        fields = ['inventory_item', 'quantity_on_order']
+
+    def __init__(self, *args, **kwargs):
+        super(OrderQuantitiesForm, self).__init__(*args, **kwargs)
+        self.fields['inventory_item'].disabled = True
 
 class OrderUpdateForm(forms.ModelForm):
     class Meta:

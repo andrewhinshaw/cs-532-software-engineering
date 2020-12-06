@@ -1,9 +1,9 @@
 # icetrack/urls.py
-from django.urls import path
+from django.urls import path, include
 
 from .views import HomePageView, AboutPageView, SuccessPageView
 from .views import InventoryPageView, InventoryCreateView, InventoryUpdateView, InventoryDeleteView, InventoryDetailView
-from .views import OrdersPageView, OrderCreateView, OrderUpdateView, OrderDeleteView, OrderDetailView
+from .views import OrdersPageView, OrderCreateView, OrderQuantitiesView, OrderUpdateView, OrderDeleteView, OrderDetailView
 from .views import ShipmentsPageView, ShipmentCreateView, ShipmentUpdateView, ShipmentDeleteView, ShipmentDetailView
 from .views import TicketsPageView, TicketCreateView, TicketUpdateView, TicketDeleteView, TicketDetailView
 
@@ -27,6 +27,7 @@ urlpatterns = [
     # ORDERS
     path('orders/', OrdersPageView.as_view(), name="orders"),
     path('create_order/', OrderCreateView.as_view(), name="create_order"),
+    path('create_order/<int:pk>', OrderQuantitiesView.as_view(), name="order_quantities"),
     path('orders/<int:pk>/update', OrderUpdateView.as_view(), name="update_order"),
     path('orders/<int:pk>/delete', OrderDeleteView.as_view(), name="delete_order"),
     path('orders/<int:pk>/', OrderDetailView.as_view(), name="order_detail"),
@@ -44,4 +45,7 @@ urlpatterns = [
     path('tickets/<int:pk>/update', TicketUpdateView.as_view(), name="update_ticket"),
     path('tickets/<int:pk>/delete', TicketDeleteView.as_view(), name="delete_ticket"),
     path('tickets/<int:pk>/', TicketDetailView.as_view(), name="ticket_detail"),
+
+    # WIDGETS
+    path("select2/", include("django_select2.urls")),
 ]
