@@ -60,7 +60,7 @@
                             <p><strong style="color:#000000">Package Size</strong></p>
                         </div>
                         <div class="col-4">
-                            <p>{{ object.package_size }}</p>
+                            <p>{{ object.package_size }} oz</p>
                         </div>
                     </div>
 
@@ -139,7 +139,13 @@
                             <tr>
                                 <td>{{ order.id }}</td>
                                 <td>{{ order.name }}</td>
-                                <td>0</td>
+                                <td>
+                                    {% for order_item in order_items %}
+                                        {% if order_item.order == order %}
+                                            {{ order_item }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
                                 <td>Administrator</td>
                                 <td>{{ order.order_date }}</td>
                                 <td>{{ order.shipped_date }}</td>

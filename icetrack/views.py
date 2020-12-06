@@ -69,6 +69,24 @@ class OrderQuantitiesView(ModelFormSetView):
         return queryset
 
     def formset_valid(self, formset):
+
+        # Iterate through items on order and update Inventory records
+        for form in formset:
+            # Get Inventory item and pk
+            item_pk = form.cleaned_data.get('inventory_item').pk
+            item = Inventory.objects.filter(id=item_pk)
+
+            # Update quantity in Inventory table
+            quantity_available = item.values('quantity')[0]['quantity']
+            quantity_on_order = form.cleaned_data.get('quantity_on_order')
+            new_quantity = quantity_available - quantity_on_order
+            Inventory.objects.filter(id=item_pk).update(quantity=new_quantity)
+
+            # Update num_orders in Inventory table
+            current_num_orders = item.values('num_orders')[0]['num_orders']
+            new_num_orders = current_num_orders + 1
+            Inventory.objects.filter(id=item_pk).update(num_orders=new_num_orders)
+
         self.object = formset.save()
         messages.success(self.request, 'Order created successfully.')
         return super().formset_valid(formset)
@@ -147,7 +165,8 @@ class InventoryDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['orders'] = Order.objects.filter(inventory_items=self.kwargs['pk'])
+        context['orders'] = Order.objects.filter(items=self.kwargs['pk'])
+        context['order_items'] = OrderItem.objects.filter(inventory_item=self.kwargs['pk'])
         return context
 
 class InventoryCreateView(FormView):
