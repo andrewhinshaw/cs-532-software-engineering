@@ -53,6 +53,13 @@ class OrderQuantitiesForm(forms.ModelForm):
     class Meta:
         fields = ['inventory_item', 'quantity_on_order']
 
+    def clean_quantity_on_order(self):
+        quantity_available = Inventory.objects.filter(id=self.cleaned_data.get('inventory_item').pk).values('quantity')[0]['quantity']
+        quantity_on_order = self.cleaned_data.get('quantity_on_order')
+        if quantity_on_order > quantity_available:
+            raise forms.ValidationError('Unable to reserve, only {} units available'.format(quantity_available))
+        return quantity_on_order
+
     def __init__(self, *args, **kwargs):
         super(OrderQuantitiesForm, self).__init__(*args, **kwargs)
         self.fields['inventory_item'].disabled = True

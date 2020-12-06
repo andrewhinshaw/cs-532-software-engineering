@@ -35,7 +35,12 @@
                 {% csrf_token %}
                 {{ formset.management_form }}
                 {% for form in formset %}
-                    {{ form|crispy }}
+                    {% if forloop.last %}
+                        {{ form|crispy }}
+                    {% else %}
+                        {{ form|crispy }}
+                        <hr/>
+                    {% endif %}
                 {% endfor %}
 		        <input type="submit" class="btn btn-primary" value='Submit'/>
 				<a href="{{ view.get_success_url }}" class="btn btn-secondary">Cancel</a>

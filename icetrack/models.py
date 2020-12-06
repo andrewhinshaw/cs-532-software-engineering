@@ -24,6 +24,7 @@ class OrderItem(models.Model):
     order = models.ForeignKey('Order', on_delete=models.CASCADE)
     inventory_item = models.ForeignKey('Inventory', on_delete=models.CASCADE)
     quantity_on_order = models.IntegerField(default='0', blank=True, null=True)
+    submitted = models.BooleanField(default=False, blank=True, null=True)
 
     def __str__(self):
         return str(self.quantity_on_order)
