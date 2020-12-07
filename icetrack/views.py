@@ -117,12 +117,9 @@ class OrderDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_staff:
             context['base_template_name'] = 'base_authenticated.html'
-            context['order_items'] = OrderItem.objects.filter(order=self.kwargs['pk'])
-            context['order'] = Order.objects.filter(created_by=self.kwargs['pk'])
         else:
             context['base_template_name'] = 'base.html'
-            context['order_items'] = OrderItem.objects.filter(order=self.kwargs['pk'])
-            context['order'] = Order.objects.filter(created_by=self.kwargs['pk'])
+        context['order_items'] = OrderItem.objects.filter(order=self.kwargs['pk'])
         return context
 
 @method_decorator(login_required, name='dispatch')
