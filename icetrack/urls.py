@@ -1,5 +1,6 @@
 # icetrack/urls.py
 from django.urls import path, include
+from django.contrib.auth.decorators import login_required
 
 from .views import HomePageView, AboutPageView, SuccessPageView
 from .views import InventoryPageView, InventoryCreateView, InventoryUpdateView, InventoryDeleteView, InventoryDetailView
@@ -18,7 +19,7 @@ urlpatterns = [
     path('success/', SuccessPageView.as_view(), name="success"),
 
     # AUTHENTICATION
-    path('account/', include('registration.backends.default.urls')),
+    path('accounts/', include('registration.backends.default.urls')),
 
     # INVENTORY
     path('inventory/', InventoryPageView.as_view(), name="inventory"),
