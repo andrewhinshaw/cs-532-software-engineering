@@ -40,9 +40,13 @@
                             <th>Status</th>
                             <th>Date Created</th>
                             <th>Last Updated</th>
-                            {% if request.user.is_staff %}
-                                <th>Actions</th>
-                            {% endif %}
+                            <th>
+                                {% if request.user.is_staff %}
+                                    Actions
+                                {% else %}
+                                    View Ticket
+                                {% endif %}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,13 +64,13 @@
                                 </td>
                                 <td>{{ ticket.date_opened }}</td>
                                 <td>{{ ticket.last_updated }}</td>
-                                {% if request.user.is_staff %}
-                                    <td>
-                                        <a class="btn btn-primary" href="{% url 'ticket_detail' ticket.id %}"><i class="far fa-eye"></i></a>
+                                <td>
+                                    <a class="btn btn-primary" href="{% url 'ticket_detail' ticket.id %}"><i class="far fa-eye"></i></a>
+                                    {% if request.user.is_staff %}
                                         <a class="btn btn-success" href="{% url 'update_ticket' ticket.id %}"><i class="fas fa-edit"></i></a>
                                         <a class="btn btn-danger" href="{% url 'delete_ticket' ticket.id %}"><i class="far fa-trash-alt"></i></a>
-                                    </td>
-                                {% endif %}
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>

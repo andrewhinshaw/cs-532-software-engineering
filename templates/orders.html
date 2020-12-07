@@ -17,10 +17,10 @@
         <div>
             <a href="{% url 'create_ticket' %}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm"><i class="fas fa-flag fa-sm text-white-50"></i> Open Ticket</a>
             <a href="{% url 'create_order' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Order</a>
-            
+
         </div>
     </div>
-    
+
     <!-- Order Data Table -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -41,7 +41,13 @@
                             <th>Status</th>
                             <th>Order Date</th>
                             <th>Variety of Flavors</th>
-                            <th>Actions</th>
+                            <th>
+                                {% if request.user.is_staff %}
+                                    Actions
+                                {% else %}
+                                    View Order
+                                {% endif %}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,8 +65,10 @@
                                 </td>
                                 <td>
                                     <a class="btn btn-primary" href="{% url 'order_detail' order.id %}"><i class="far fa-eye"></i></a>
-                                    <a class="btn btn-success" href="{% url 'update_order' order.id %}"><i class="fas fa-edit"></i></a>
-                                    <a class="btn btn-danger" href="{% url 'delete_order' order.id %}"><i class="far fa-trash-alt"></i></a>
+                                    {% if request.user.is_staff %}
+                                        <a class="btn btn-success" href="{% url 'update_order' order.id %}"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-danger" href="{% url 'delete_order' order.id %}"><i class="far fa-trash-alt"></i></a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
@@ -72,4 +80,3 @@
 </div>
 
 {% endblock content %}
-
