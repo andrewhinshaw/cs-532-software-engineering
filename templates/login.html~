@@ -1,6 +1,0 @@
-<!-- templates/home.html -->
-{% extends 'base.html' %}
-
-{% block content%}
-<h1>Ice Track Home Page</h1>
-{% endblock content %}

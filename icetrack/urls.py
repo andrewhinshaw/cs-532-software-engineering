@@ -17,6 +17,9 @@ urlpatterns = [
     path('about/', AboutPageView.as_view(), name="about"),
     path('success/', SuccessPageView.as_view(), name="success"),
 
+    # AUTHENTICATION
+    path('account/', include('registration.backends.default.urls')),
+
     # INVENTORY
     path('inventory/', InventoryPageView.as_view(), name="inventory"),
     path('create_inventory/', InventoryCreateView.as_view(), name="create_inventory"),
