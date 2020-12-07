@@ -83,6 +83,14 @@ class OrderCreateView(FormView):
     template_name = 'create_order.html'
     success_url = 'order_quantities'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
+
     def form_valid(self, form):
         self.object = form.save()
         return redirect('order_quantities', pk=self.object.pk)
@@ -101,6 +109,14 @@ class OrderQuantitiesView(ModelFormSetView):
         order_id = self.kwargs['pk']
         queryset = OrderItem.objects.filter(order=order_id)
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
 
     def formset_valid(self, formset):
 
@@ -260,6 +276,14 @@ class TicketCreateView(FormView):
         return {
             'subsystem': subsystem,
         }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
 
     def form_valid(self, form):
         self.object = form.save()
