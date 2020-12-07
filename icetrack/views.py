@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.forms import modelformset_factory
 from django.views.generic import TemplateView, ListView, FormView, UpdateView, DeleteView, DetailView
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.contrib import messages
 
 from extra_views import ModelFormSetView, InlineFormSetFactory, CreateWithInlinesView
@@ -15,17 +15,51 @@ from .forms import ShipmentCreateForm, ShipmentUpdateForm
 
 import datetime
 
-
 # GENERAL
 class HomePageView(TemplateView):
     template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Context for card counts
         context['total_inventory_items'] = Inventory.objects.count()
         context['total_shipments'] = Shipment.objects.count()
         context['total_tickets'] = Ticket.objects.count()
         context['total_orders'] = Order.objects.count()
+
+        # Context for Order area chart
+        sdate = datetime.date.today() - datetime.timedelta(days=7)
+        days = []
+        order_counts = []
+        for i in range(7):
+            day = sdate + datetime.timedelta(days=i)
+            days.append(str(day.strftime('%b %-d')))
+            order_counts.append(Order.objects.filter(order_date__date=day).count())
+
+        context['area_labels'] = days
+        context['area_data'] = order_counts
+
+        # Context for Inventory status pie chart
+        sum_actual = 0
+        sum_planned = 0
+        sum_defective = 0
+        sum_spoilage = 0
+
+        inventory_queryset = Inventory.objects.all()
+        for item in inventory_queryset:
+            if item.state == 'Actual':
+                sum_actual += item.quantity
+            elif item.state == 'Planned':
+                sum_planned += item.quantity
+            elif item.state == 'Defective':
+                sum_defective += item.quantity
+            elif item.state == 'Spoilage':
+                sum_spoilage += item.quantity
+
+        context['pie_data'] = [sum_actual, sum_planned, sum_defective, sum_spoilage]
+        context['pie_labels'] = ['Actual', 'Planned', 'Defective', 'Spoilage']
+
         return context
 
 class AboutPageView(TemplateView):

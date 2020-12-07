@@ -26,7 +26,7 @@ class InventoryCreateForm(forms.ModelForm):
 class InventoryUpdateForm(forms.ModelForm):
     class Meta:
         model = Inventory
-        fields = ['item_name', 'state', 'quantity']
+        fields = ['item_name', 'state', 'quantity', 'package_size']
 
 # TICKETS
 class TicketCreateForm(forms.ModelForm):
@@ -67,15 +67,19 @@ class OrderQuantitiesForm(forms.ModelForm):
 class OrderUpdateForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['name', 'items']
+        fields = ['status']
 
 # SHIPMENTS
 class ShipmentCreateForm(forms.ModelForm):
     class Meta:
         model = Shipment
-        fields = ['name', 'attached_order']
+        fields = ['attached_order', 'name', 'location', 'is_express_shipping']
+
+    def __init__(self, *args, **kwargs):
+        super(ShipmentCreateForm, self).__init__(*args, **kwargs)
+        self.fields['attached_order'].queryset = Order.objects.filter(status='Fulfilled')
 
 class ShipmentUpdateForm(forms.ModelForm):
     class Meta:
         model = Shipment
-        fields = ['name', 'status']
+        fields = ['status', 'name', 'location', 'is_express_shipping']
