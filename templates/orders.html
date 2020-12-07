@@ -14,7 +14,11 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Orders</h1>
-        <a href="{% url 'create_order' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Order</a>
+        <div>
+            <a href="{% url 'create_ticket' %}" class="d-none d-sm-inline-block btn btn-sm btn-warning shadow-sm"><i class="fas fa-flag fa-sm text-white-50"></i> Open Ticket</a>
+            <a href="{% url 'create_order' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Order</a>
+            
+        </div>
     </div>
     
     <!-- Order Data Table -->

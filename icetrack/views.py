@@ -96,8 +96,11 @@ class OrdersPageView(ListView):
         return context
 
     def get_queryset(self):
-        qs = super().get_queryset()
-        return qs
+        if self.request.user.is_staff:
+            queryset = Order.objects.all()
+        else:
+            queryset = Order.objects.filter(created_by=self.request.user.id)
+        return queryset
 
 @method_decorator(login_required, name='dispatch')
 class OrderDetailView(DetailView):
