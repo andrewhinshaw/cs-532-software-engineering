@@ -17,7 +17,13 @@ import datetime
 
 # GENERAL
 class HomePageView(TemplateView):
-    template_name = 'home.html'
+
+    def get_template_names(self):
+        if self.request.user.is_staff:
+            template_name = 'home.html'
+        else:
+            template_name = 'landing_page.html'
+        return template_name
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -102,8 +108,19 @@ class OrderQuantitiesView(ModelFormSetView):
     factory_kwargs = {'extra': 0}
 
     def get_success_url(self):
+        if self.request.user.is_staff:
+            success_url = '/tickets/'
+        else:
+            success_url = '/'
+        return success_url
+
+    def get_success_url(self):
         order_id = self.kwargs['pk']
-        return reverse('order_detail', kwargs = {'pk': order_id})
+        if self.request.user.is_staff:
+            success_url = reverse('order_detail', kwargs = {'pk': order_id})
+        else:
+            success_url = '/'
+        return success_url
 
     def get_queryset(self):
         order_id = self.kwargs['pk']
@@ -262,17 +279,23 @@ class TicketDetailView(DetailView):
 class TicketCreateView(FormView):
     form_class = TicketCreateForm
     template_name = 'create_ticket.html'
-    success_url = '/tickets/'
+
+    def get_success_url(self):
+        if self.request.user.is_staff:
+            success_url = '/tickets/'
+        else:
+            success_url = '/'
+        return success_url
 
     def get_initial(self):
         if 'ticket' in self.request.META['HTTP_REFERER']:
             subsystem = 'Tickets'
-        elif 'order' in self.request.META['HTTP_REFERER']:
-            subsystem = 'Orders'
         elif 'inventory' in self.request.META['HTTP_REFERER']:
             subsystem = 'Inventory'
         elif 'shipment' in self.request.META['HTTP_REFERER']:
             subsystem = 'Shipments'
+        else:
+            subsystem = 'Orders'
         return {
             'subsystem': subsystem,
         }
