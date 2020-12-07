@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Order(models.Model):
@@ -13,6 +14,7 @@ class Order(models.Model):
     items = models.ManyToManyField('Inventory', blank=True, through='OrderItem')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Placed')
     order_date = models.DateTimeField(auto_now_add=True, auto_now=False)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.name)
@@ -103,6 +105,7 @@ class Ticket(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Open')
     subsystem = models.CharField(max_length=10, choices=SUBSYSTEM_CHOICES, default='N/A')
     opened_by = models.CharField(max_length=50, blank=True, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     date_opened = models.DateTimeField(auto_now_add=True, auto_now=False)
     last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     export_to_CSV = models.BooleanField(default=False)

@@ -86,10 +86,19 @@ class OrdersPageView(ListView):
     template_name = 'orders.html'
     context_object_name = 'all_orders_list'
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            return redirect('home')
-        return super(OrdersPageView, self).dispatch(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            queryset = Order.objects.all()
+        else:
+            queryset = Order.objects.filter(created_by=self.request.user.id)
 
 @method_decorator(login_required, name='dispatch')
 class OrderDetailView(DetailView):
@@ -116,6 +125,7 @@ class OrderCreateView(FormView):
         return context
 
     def form_valid(self, form):
+        self.object.created_by = self.request.user.id
         self.object = form.save()
         return redirect('order_quantities', pk=self.object.pk)
 
@@ -357,10 +367,20 @@ class TicketsPageView(ListView):
     template_name = 'tickets.html'
     context_object_name = 'all_tickets_list'
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            return redirect('home')
-        return super(TicketsPageView, self).dispatch(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            queryset = Ticket.objects.all()
+        else:
+            queryset = Ticket.objects.filter(created_by=self.request.user.id)
+        return queryset
 
 @method_decorator(login_required, name='dispatch')
 class TicketDetailView(DetailView):
@@ -406,6 +426,7 @@ class TicketCreateView(FormView):
         return context
 
     def form_valid(self, form):
+        self.object.created_by = self.request.user.id
         self.object = form.save()
         messages.success(self.request, 'Ticket created successfully.')
         return super().form_valid(form)

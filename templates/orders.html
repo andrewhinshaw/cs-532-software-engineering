@@ -1,5 +1,5 @@
 <!-- templates/home.html -->
-{% extends 'base_authenticated.html' %}
+{% extends base_template_name %}
 
 {% block content%}
 <div class="container-fluid">
@@ -16,10 +16,25 @@
         <h1 class="h3 mb-0 text-gray-800">Orders</h1>
         <a href="{% url 'create_order' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create Order</a>
     </div>
-    <ul>
-        {% for order in all_orders_list %}
-            <li>{{ order.id }}: {{ order.name }}</li>
-        {% endfor %}
-    </ul>
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                {% if request.user.is_staff %}
+                    All Orders
+                {% else %}
+                    Your Orders
+                {% endif %}
+            </h6>
+        </div>
+        <div class="card-body">
+            <ul>
+                {% for order in all_orders_list %}
+                    <li>{{ order.id }}: {{ order.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 </div>
 {% endblock content %}

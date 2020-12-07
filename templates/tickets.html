@@ -1,5 +1,5 @@
 <!-- templates/tickets.html -->
-{% extends 'base_authenticated.html' %}
+{% extends base_template_name %}
 
 {% block content%}
 
@@ -23,7 +23,13 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Tickets</h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+                {% if request.user.is_staff %}
+                    All Tickets
+                {% else %}
+                    Your Tickets
+                {% endif %}
+            </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -34,7 +40,9 @@
                             <th>Status</th>
                             <th>Date Created</th>
                             <th>Last Updated</th>
-                            <th>Actions</th>
+                            {% if request.user.is_staff %}
+                                <th>Actions</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
@@ -52,11 +60,13 @@
                                 </td>
                                 <td>{{ ticket.date_opened }}</td>
                                 <td>{{ ticket.last_updated }}</td>
-                                <td>
-                                    <a class="btn btn-primary" href="{% url 'ticket_detail' ticket.id %}"><i class="far fa-eye"></i></a>
-                                    <a class="btn btn-success" href="{% url 'update_ticket' ticket.id %}"><i class="fas fa-edit"></i></a>
-                                    <a class="btn btn-danger" href="{% url 'delete_ticket' ticket.id %}"><i class="far fa-trash-alt"></i></a>
-                                </td>
+                                {% if request.user.is_staff %}
+                                    <td>
+                                        <a class="btn btn-primary" href="{% url 'ticket_detail' ticket.id %}"><i class="far fa-eye"></i></a>
+                                        <a class="btn btn-success" href="{% url 'update_ticket' ticket.id %}"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-danger" href="{% url 'delete_ticket' ticket.id %}"><i class="far fa-trash-alt"></i></a>
+                                    </td>
+                                {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody>
