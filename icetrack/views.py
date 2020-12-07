@@ -96,10 +96,8 @@ class OrdersPageView(ListView):
         return context
 
     def get_queryset(self):
-        if self.request.user.is_staff:
-            queryset = Order.objects.all()
-        else:
-            queryset = Order.objects.filter(created_by=self.request.user.id)
+        qs = super().get_queryset()
+        return qs
 
 @method_decorator(login_required, name='dispatch')
 class OrderDetailView(DetailView):
@@ -116,8 +114,12 @@ class OrderDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_staff:
             context['base_template_name'] = 'base_authenticated.html'
+            context['order_items'] = OrderItem.objects.filter(order=self.kwargs['pk'])
+            context['order'] = Order.objects.filter(created_by=self.kwargs['pk'])
         else:
             context['base_template_name'] = 'base.html'
+            context['order_items'] = OrderItem.objects.filter(order=self.kwargs['pk'])
+            context['order'] = Order.objects.filter(created_by=self.kwargs['pk'])
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -233,9 +235,9 @@ class OrderDeleteView(DeleteView):
 # SHIPMENTS
 @method_decorator(login_required, name='dispatch')
 class ShipmentsPageView(ListView):
-    model = Shipment
+    model = Order
     template_name = 'shipments.html'
-    context_object_name = 'all_shipments_list'
+    context_object_name = 'all_orders_list'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
