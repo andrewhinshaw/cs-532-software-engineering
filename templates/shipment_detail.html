@@ -35,30 +35,30 @@
 
                     <!-- Cell A1 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Name</strong></p>
                         </div>
-                        <div class="col-4" style="width: 8rem;">
+                        <div class="col-9" style="width: 8rem;">
                             <p>{{ object.name }}</p>
                         </div>
                     </div>
 
                     <!-- Cell A2 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Location</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.location }}</p>
                         </div>
                     </div>
 
                     <!-- Cell A3 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Order</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             {% if object.attached_order is None %}
                                 <p>N/A</p>
                             {% else %}
@@ -69,10 +69,10 @@
 
                     <!-- Cell A4 -->
                     <div class="row">
-                        <div class="col-2 ">
+                        <div class="col-3 ">
                             <p><strong style="color:#000000">Express Shipping</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             {% if object.is_express_shipping is False %}
                                 <p>No</p>
                             {% elif object.is_express_shipping is True %}
@@ -83,10 +83,10 @@
 
                     <!-- Cell A5 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Order Date</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.attached_order.order_date }}</p>
                         </div>
                     </div>
@@ -97,30 +97,30 @@
 
                     <!-- Cell B1 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Order  Status</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.attached_order.status }}</p>
                         </div>
                     </div>
 
                     <!-- Cell B2 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Shipment Status</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.status }}</p>
                         </div>
                     </div>
 
                     <!-- Cell B3 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Shipped Date</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             {% if object.shipped_date is None %}
                                 <p>N/A</p>
                             {% else %}

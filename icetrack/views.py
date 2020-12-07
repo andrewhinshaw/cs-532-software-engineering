@@ -6,6 +6,7 @@ from django.db.models import Sum, Count
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.http import Http404
 
 from extra_views import ModelFormSetView, InlineFormSetFactory, CreateWithInlinesView
 
@@ -105,10 +106,19 @@ class OrderDetailView(DetailView):
     model = Order
     template_name = 'order_detail.html'
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            return redirect('home')
-        return super(OrderDetailView, self).dispatch(request, *args, **kwargs)
+    def get_object(self, **kwargs):
+        object = super(OrderDetailView, self).get_object(**kwargs)
+        if not self.request.user.is_staff and object.created_by != self.request.user:
+            raise Http404
+        return object
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class OrderCreateView(FormView):
@@ -125,7 +135,7 @@ class OrderCreateView(FormView):
         return context
 
     def form_valid(self, form):
-        self.object.created_by = self.request.user.id
+        form.instance.created_by = self.request.user
         self.object = form.save()
         return redirect('order_quantities', pk=self.object.pk)
 
@@ -191,6 +201,14 @@ class OrderUpdateView(UpdateView):
         if not request.user.is_staff:
             return redirect('home')
         return super(OrderUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
 
     def form_valid(self, form):
         self.object = form.save()
@@ -261,6 +279,14 @@ class ShipmentUpdateView(UpdateView):
         if not request.user.is_staff:
             return redirect('home')
         return super(ShipmentUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
 
     def form_valid(self, form):
         if self.object.status == 'Shipped':
@@ -340,6 +366,14 @@ class InventoryUpdateView(UpdateView):
             return redirect('home')
         return super(InventoryUpdateView, self).dispatch(request, *args, **kwargs)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
+
     def form_valid(self, form):
         self.object = form.save()
         messages.success(self.request, 'Inventory updated successfully.')
@@ -387,10 +421,19 @@ class TicketDetailView(DetailView):
     model = Ticket
     template_name = 'ticket_detail.html'
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            return redirect('home')
-        return super(TicketDetailView, self).dispatch(request, *args, **kwargs)
+    def get_object(self, **kwargs):
+        object = super(TicketDetailView, self).get_object(**kwargs)
+        if not self.request.user.is_staff and object.created_by != self.request.user:
+            raise Http404
+        return object
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
 
 @method_decorator(login_required, name='dispatch')
 class TicketCreateView(FormView):
@@ -426,7 +469,7 @@ class TicketCreateView(FormView):
         return context
 
     def form_valid(self, form):
-        self.object.created_by = self.request.user.id
+        form.instance.created_by = self.request.user
         self.object = form.save()
         messages.success(self.request, 'Ticket created successfully.')
         return super().form_valid(form)
@@ -442,6 +485,14 @@ class TicketUpdateView(UpdateView):
         if not request.user.is_staff:
             return redirect('home')
         return super(TicketUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_staff:
+            context['base_template_name'] = 'base_authenticated.html'
+        else:
+            context['base_template_name'] = 'base.html'
+        return context
 
     def form_valid(self, form):
         self.object = form.save()

@@ -1,5 +1,5 @@
 <!-- templates/home.html -->
-{% extends 'base_authenticated.html' %}
+{% extends base_template_name %}
 
 {% block content%}
 <div class="container-fluid">
@@ -32,30 +32,30 @@
 
                     <!-- Cell A1 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Title</strong></p>
                         </div>
-                        <div class="col-4" style="width: 8rem;">
+                        <div class="col-9" style="width: 8rem;">
                             <p>{{ object.title }}</p>
                         </div>
                     </div>
 
                     <!-- Cell A2 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Description</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.description }}</p>
                         </div>
                     </div>
 
                     <!-- Cell A3 -->
                     <div class="row">
-                        <div class="col-2 ">
+                        <div class="col-3 ">
                             <p><strong style="color:#000000">Opened By</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             {% if object.created_by is None %}
                                 <p>N/A</p>
                             {% else %}
@@ -66,10 +66,10 @@
 
                     <!-- Cell A4 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Created Date</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.date_opened }}</p>
                         </div>
                     </div>
@@ -80,10 +80,10 @@
 
                     <!-- Cell B1 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Status</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             {% if object.status == 'Open' %}
                                 <p><span class="badge badge-primary">{{object.status}}</span></p>
                             {% elif object.status == 'On Hold' %}
@@ -96,10 +96,10 @@
 
                     <!-- Cell B2 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Last Updated</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.last_updated }}</p>
                         </div>
                     </div>

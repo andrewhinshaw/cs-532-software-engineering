@@ -36,40 +36,40 @@
 
                     <!-- Cell A1 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Flavor</strong></p>
                         </div>
-                        <div class="col-4" style="width: 8rem;">
+                        <div class="col-9" style="width: 8rem;">
                             <p>{{ object.item_name }}</p>
                         </div>
                     </div>
 
                     <!-- Cell A2 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Quantity</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.quantity }}</p>
                         </div>
                     </div>
 
                     <!-- Cell A3 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Package Size</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.package_size }} oz</p>
                         </div>
                     </div>
 
                     <!-- Cell A4 -->
                     <div class="row">
-                        <div class="col-2 ">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Created By</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             {% if object.created_by is None %}
                                 <p>N/A</p>
                             {% else %}
@@ -80,10 +80,10 @@
 
                     <!-- Cell A5 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Created Date</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.date_created }}</p>
                         </div>
                     </div>
@@ -94,20 +94,20 @@
 
                     <!-- Cell B1 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">State</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.state }}</p>
                         </div>
                     </div>
 
                     <!-- Cell B2 -->
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-3">
                             <p><strong style="color:#000000">Last Updated</strong></p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-9">
                             <p>{{ object.last_updated }}</p>
                         </div>
                     </div>
