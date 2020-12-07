@@ -235,9 +235,9 @@ class OrderDeleteView(DeleteView):
 # SHIPMENTS
 @method_decorator(login_required, name='dispatch')
 class ShipmentsPageView(ListView):
-    model = Order
+    model = Shipment
     template_name = 'shipments.html'
-    context_object_name = 'all_orders_list'
+    context_object_name = 'all_shipments_list'
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_staff:
