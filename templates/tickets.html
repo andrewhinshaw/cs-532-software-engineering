@@ -62,8 +62,8 @@
                                         <span class="badge badge-success">{{ticket.status}}</span>
                                     {% endif %}
                                 </td>
-                                <td>{{ ticket.date_opened }}</td>
-                                <td>{{ ticket.last_updated }}</td>
+                                <td>{{ ticket.date_opened|date:"SHORT_DATE_FORMAT" }}</td>
+                                <td>{{ ticket.last_updated|date:"SHORT_DATE_FORMAT" }}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{% url 'ticket_detail' ticket.id %}"><i class="far fa-eye"></i></a>
                                     {% if request.user.is_staff %}

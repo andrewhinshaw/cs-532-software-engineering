@@ -60,7 +60,7 @@
                                     {{ order.status }}
                                 </td>
                                 <td>
-                                    {{ order.order_date }}
+                                    {{ order.order_date|date:"SHORT_DATE_FORMAT" }}
                                 </td>
                                 <td>
                                     {{ order.items.count }}

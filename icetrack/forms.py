@@ -73,7 +73,7 @@ class OrderUpdateForm(forms.ModelForm):
 class ShipmentCreateForm(forms.ModelForm):
     class Meta:
         model = Shipment
-        fields = ['attached_order', 'name', 'location', 'is_express_shipping']
+        fields = ['attached_order', 'location', 'is_express_shipping']
 
     def __init__(self, *args, **kwargs):
         super(ShipmentCreateForm, self).__init__(*args, **kwargs)
@@ -82,4 +82,4 @@ class ShipmentCreateForm(forms.ModelForm):
 class ShipmentUpdateForm(forms.ModelForm):
     class Meta:
         model = Shipment
-        fields = ['status', 'name', 'location', 'is_express_shipping']
+        fields = ['status', 'location', 'is_express_shipping']

@@ -52,16 +52,6 @@
                             <p>{{ object.items.count }}</p>
                         </div>
                     </div>
-
-                    <!-- Cell A3 -->
-                    <div class="row">
-                        <div class="col-3">
-                            <p><strong style="color:#000000">Total Package Size</strong></p>
-                        </div>
-                        <div class="col-9">
-                            <p>{% widthratio object.items.count 1 16 as package_size %}{{ package_size }} oz</p>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Column B -->
@@ -97,7 +87,7 @@
                             <p><strong style="color:#000000">Created Date</strong></p>
                         </div>
                         <div class="col-9">
-                            <p>{{ object.order_date }}</p>
+                            <p>{{ object.order_date|date:"SHORT_DATETIME_FORMAT" }}</p>
                         </div>
                     </div>
                 </div>

@@ -37,12 +37,12 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Order Number</th>
+                            <th>Order #</th>
                             <th>Status</th>
                             <th>Location</th>
                             <th>Express Shipping</th>
                             <th>Order Date</th>
-                            <th>Date Shipped</th>
+                            <th>Shipped Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -72,12 +72,12 @@
                                         Yes
                                     {% endif %}
                                 </td>
-                                <td>{{ shipment.order_date }}</td>
+                                <td>{{ shipment.order_date|date:"SHORT_DATE_FORMAT" }}</td>
                                 <td>
                                     {% if shipment.shipped_date is None %}
                                         N/A
                                     {% else %}
-                                        {{ shipment.shipped_date }}
+                                        {{ shipment.shipped_date|date:"SHORT_DATE_FORMAT" }}
                                     {% endif %}
                                 </td>
                                 <td>

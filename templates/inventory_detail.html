@@ -84,7 +84,7 @@
                             <p><strong style="color:#000000">Created Date</strong></p>
                         </div>
                         <div class="col-9">
-                            <p>{{ object.date_created }}</p>
+                            <p>{{ object.date_created|date:"SHORT_DATETIME_FORMAT" }}</p>
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                             <p><strong style="color:#000000">Last Updated</strong></p>
                         </div>
                         <div class="col-9">
-                            <p>{{ object.last_updated }}</p>
+                            <p>{{ object.last_updated|date:"SHORT_DATETIME_FORMAT" }}</p>
                         </div>
                     </div>
                 </div>

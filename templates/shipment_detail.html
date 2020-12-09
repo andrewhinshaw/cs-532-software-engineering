@@ -87,7 +87,7 @@
                             <p><strong style="color:#000000">Order Date</strong></p>
                         </div>
                         <div class="col-9">
-                            <p>{{ object.attached_order.order_date }}</p>
+                            <p>{{ object.attached_order.order_date|date:"SHORT_DATETIME_FORMAT" }}</p>
                         </div>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                             {% if object.shipped_date is None %}
                                 <p>N/A</p>
                             {% else %}
-                                <p>{{ object.shipped_date }}</p>
+                                <p>{{ object.shipped_date|date:"SHORT_DATETIME_FORMAT" }}</p>
                             {% endif %}
                         </div>
                     </div>
