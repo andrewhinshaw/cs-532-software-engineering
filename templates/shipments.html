@@ -49,16 +49,22 @@
                     <tbody>
                         {% for shipment in all_shipments_list %}
                             <tr>
-                                <td>{{ shipment.name }}</td>
                                 <td>
                                     {% if shipment.attached_order is None %}
-                                        <p>N/A</p>
+                                        N/A<
                                     {% else %}
-                                        <p><a href="{% url 'order_detail' shipment.attached_order.id  %}">{{ shipment.attached_order }}</a></p>
+                                        {{ shipment.attached_order }}
                                     {% endif %}
                                 </td>
-                                <td>{{ shipment.location }}</td>
+                                <td>
+                                    {% if shipment.attached_order is None %}
+                                        N/A
+                                    {% else %}
+                                        <a href="{% url 'order_detail' shipment.attached_order.id  %}">{{ shipment.attached_order.id }}</a>
+                                    {% endif %}
+                                </td>
                                 <td>{{ shipment.status }}</td>
+                                <td>{{ shipment.location }}</td>
                                 <td>
                                     {% if shipment.is_express_shipping is False %}
                                         No
@@ -67,7 +73,13 @@
                                     {% endif %}
                                 </td>
                                 <td>{{ shipment.order_date }}</td>
-                                <td>{{ shipment.shipped_date }}</td>
+                                <td>
+                                    {% if shipment.shipped_date is None %}
+                                        N/A
+                                    {% else %}
+                                        {{ shipment.shipped_date }}
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <a class="btn btn-primary" href="{% url 'shipment_detail' shipment.id %}"><i class="far fa-eye"></i></a>
                                     <a class="btn btn-success" href="{% url 'update_shipment' shipment.id %}"><i class="fas fa-edit"></i></a>

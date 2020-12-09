@@ -38,6 +38,7 @@
                     <thead>
                         <tr>
                             <th>Id</th>
+                            <th>Name</th>
                             <th>Status</th>
                             <th>Order Date</th>
                             <th>Variety of Flavors</th>
@@ -54,6 +55,7 @@
                         {% for order in all_orders_list %}
                             <tr>
                                 <td>{{ order.id }}</td>
+                                <td>{{ order.name }}</td>
                                 <td>
                                     {{ order.status }}
                                 </td>
