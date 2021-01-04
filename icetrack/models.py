@@ -79,9 +79,6 @@ class Inventory(models.Model):
     last_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     export_to_CSV = models.BooleanField(default=False)
 
-    # def get_absolute_url(self):
-    #     return reverse('update_inventory', kwargs={'pk': self.pk})
-
     def __str__(self):
         return str(self.item_name)
 

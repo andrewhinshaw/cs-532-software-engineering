@@ -1,4 +1,4 @@
-<!-- templates/home.html -->
+<!-- templates/order_detail.html -->
 {% extends base_template_name %}
 
 {% block content%}
@@ -16,13 +16,15 @@
         <h1 class="h3 mb-0 text-gray-800">Orders</h1>
         <div>
             <a href="{% url 'orders' %}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-chevron-left fa-sm text-white-50"></i> All Orders</a>
-            <a href="{% url 'update_order' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Order</a>
-            <a href="{% url 'delete_order' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-trash fa-sm text-white-50"></i> Delete Order</a>
+            {% if request.user.is_staff %}
+                <a href="{% url 'update_order' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Order</a>
+                <a href="{% url 'delete_order' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-trash fa-sm text-white-50"></i> Delete Order</a>
+            {% endif %}
         </div>
     </div>
 
     <!-- Inventory Details -->
-    <div class="card shadow mb-4">
+    <div class="card shadow mb-4" {% if not request.user.is_staff %}style="width: 54rem;"{% endif %}>
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Order Details</h6>
         </div>

@@ -1,4 +1,4 @@
-<!-- templates/home.html -->
+<!-- templates/ticket_detail.html -->
 {% extends base_template_name %}
 
 {% block content%}
@@ -16,8 +16,10 @@
         <h1 class="h3 mb-0 text-gray-800">Tickets</h1>
         <div>
             <a href="{% url 'tickets' %}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-chevron-left fa-sm text-white-50"></i> All Tickets</a>
-            <a href="{% url 'update_ticket' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Ticket</a>
-            <a href="{% url 'delete_ticket' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-trash fa-sm text-white-50"></i> Delete Ticket</a>
+            {% if request.user.is_staff %}
+                <a href="{% url 'update_ticket' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-edit fa-sm text-white-50"></i> Edit Ticket</a>
+                <a href="{% url 'delete_ticket' object.id %}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"><i class="fas fa-trash fa-sm text-white-50"></i> Delete Ticket</a>
+            {% endif %}
         </div>
     </div>
     <div class="card shadow mb-4">
