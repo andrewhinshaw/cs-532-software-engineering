@@ -16,7 +16,7 @@ The Icetrack system leverages Django's built-in registration and authentication 
 
 ## Components
 
-There are five main components in the Icetrack inventory management system: home, inventory, orders, shipments, and tickets. For the sake of keeping this readme concise, not all pages are outlined here. In additiona to the overview pages, each component has additional pages for viewing item details (see \*_detail.html templates) and creating/updating an item (see create_/*.html templates).
+There are five main components in the Icetrack inventory management system: home, inventory, orders, shipments, and tickets. For the sake of keeping this readme concise, not all pages are outlined here. In addition to the overview pages, each component has additional pages for viewing item details (see \*_detail.html templates) and creating/updating an item (see create_\*.html templates).
 
 ### Home
 
@@ -31,7 +31,7 @@ A registered user lands on the welcome page where they can use the navigation me
 
 #### Administrator
 
-An administrator lands on the dashboard which gives an overview of all components of the system along with a few charts to provide a snapshot of sales and inventory data.
+An administrator lands on the dashboard which gives an overview of all components of the system along with a few charts to provide a snapshot of orders and inventory data.
 
 ![Administrator home page](https://i.postimg.cc/fRDJvLth/home-admin.png)
 
@@ -42,7 +42,7 @@ An administrator lands on the dashboard which gives an overview of all component
 
 #### Administrator
 
-To protect the integrity of the inventory system, only administrators are able to access the all inventory page. This page provides details about the items in the inventory along with functionality to create, read, update, and delete inventory items as needed as well as open tickets for any issues with the inventory component.
+To protect the integrity of the inventory system, only administrators are able to access the inventory page. This page provides details about the items in the inventory along with functionality to create, read, update, and delete inventory items as needed. Additionally, administrators can open tickets for any issues with this component.
 
 ![Inventory page](https://i.postimg.cc/0yXPJ27n/inventory-admin.png)
 
@@ -87,7 +87,7 @@ Registered users are allowed access to see the tickets they have opened. From he
 
 #### Administrator
 
-Administrators are allowed to see all tickets opened and are given access to create ticket, view ticket details, update ticket, and delete tickets. 
+Administrators are allowed to see all tickets and are given access to create ticketa, view ticket details, update tickets, and delete tickets. 
 
 ![Administrator tickets page](https://i.postimg.cc/7LbsfqNg/tickets-admin.png)
 
