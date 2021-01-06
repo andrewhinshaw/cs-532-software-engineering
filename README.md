@@ -4,13 +4,13 @@ Icetrack is a Python Django-based inventory management system created for CS 532
 
 ## Implementation
 
-Django was chosen for the back end of this project because of its flexibility and minimal barrior to entry. The documentation and community support allowed for both a relatively simple setup and minimal time spent overcoming roadblocks. Class-based views were chosen over function-based views to make use of Django's built-in generic class-based views for even further acceleration at the start of the project./n
+Django was chosen for the back end of this project because of its flexibility and minimal barrior to entry. The documentation and community support allowed for both a relatively simple setup and minimal time spent overcoming roadblocks. Class-based views were chosen over function-based views to make use of Django's built-in generic class-based views for even further acceleration at the start of the project.  
 
 In order to allow for the most focus to be spent on building the back end of the project, Bootstrap was chosen for the front end. Using the SB Admin 2 theme as a starting point allowed for more time to be spent building and enhancing the back end of the project which was the focal point for this project.
 
 ## Authentication
 
-The Icetrack inventory management system has three levels of authentication: non-registered users, registered users, and administrators. The visibility and functionality of the components outlined below is entirely dependant on the user's level of authentication. Non-registered users are not allowed access to the application and are redirected to the login page from anywhere they attempt to access. Registered users are given minimal access to the orders and tickets components. Administrators are given full access to the system and shown additional insights on the dashboard.\n
+The Icetrack inventory management system has three levels of authentication: non-registered users, registered users, and administrators. The visibility and functionality of the components outlined below is entirely dependant on the user's level of authentication. Non-registered users are not allowed access to the application and are redirected to the login page from anywhere they attempt to access. Registered users are given minimal access to the orders and tickets components. Administrators are given full access to the system and shown additional insights on the dashboard.  
 
 The Icetrack system leverages Django's built-in registration and authentication system with simple Bootstrap components layered over it for the front end. Users can register a new account or login with/reset password for an existing account.
 
@@ -20,8 +20,8 @@ There are five main components in the Icetrack inventory management system: home
 
 ### Home
 
-**Template**: home.html\n
-**View**: HomePageView\n
+**Template**: home.html  
+**View**: HomePageView
 
 #### Registered User
 
@@ -37,8 +37,8 @@ An administrator lands on the dashboard which gives an overview of all component
 
 ### Inventory
 
-**Template**: inventory.html\n
-**View**: InventoryPageView 
+**Template**: inventory.html  
+**View**: InventoryPageView
 
 #### Administrator
 
@@ -48,7 +48,7 @@ To protect the integrity of the inventory system, only administrators are able t
 
 ### Orders
 
-**Template**: orders.html
+**Template**: orders.html  
 **View**: OrdersPageView
 
 #### Registered User
@@ -65,7 +65,7 @@ Administrators are allowed to see all orders placed and are given access to crea
 
 ### Shipments
 
-**Template**: shipments.html
+**Template**: shipments.html  
 **View**: ShipmentsPageView
 
 #### Administrator
@@ -76,7 +76,7 @@ To protect the integrity of the inventory system, only administrators are able t
 
 ### Tickets
 
-**Template**: tickets.html
+**Template**: tickets.html  
 **View**: TicketsPageView
 
 #### Registered User
